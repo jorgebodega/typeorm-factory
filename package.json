@@ -15,27 +15,37 @@
     "format": "prettier --write \"{src,test}/**/*.ts\"",
     "format:ci": "prettier --check \"{src,test}/**/*.ts\"",
     "lint": "eslint \"{src,test}/**/*.ts\"",
-    "lint:fix": "yarn lint --fix",
-    "lint:ci": "yarn lint",
+    "lint:fix": "pnpm lint --fix",
+    "lint:ci": "pnpm lint",
     "prebuild": "rimraf dist",
     "schema:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop",
     "schema:log": "ts-node ./node_modules/typeorm/cli.js schema:log",
     "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
-    "seed:run": "ts-node ./src/cli.ts seed",
-    "seed:config": "ts-node ./src/cli.ts config",
     "test": "jest",
     "test:ci": "jest --silent",
     "test:cov": "jest --coverage --silent",
     "test:watch": "jest --watch",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {},
-  "engines": {},
+  "engines": {
+    "node": ">=14"
+  },
   "devDependencies": {
+    "@faker-js/faker": "7.3.0",
+    "@tsconfig/node16": "1.0.3",
+    "@types/jest": "28.1.4",
+    "@typescript-eslint/eslint-plugin": "5.30.5",
+    "@typescript-eslint/parser": "5.30.5",
     "eslint": "8.20.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
     "jest": "28.1.3",
-    "prettier": "2.7.1"
+    "prettier": "2.7.1",
+    "rimraf": "3.0.2",
+    "typeorm": "0.3.7",
+    "typescript": "4.7.4"
+  },
+  "peerDependencies": {
+    "typeorm": "^0.3.0"
   }
 }

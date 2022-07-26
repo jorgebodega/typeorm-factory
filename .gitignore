@@ -1,2 +1,6 @@
+### generated stuff ###
+dist
+test.db
+
 ### node ###
 node_modules
