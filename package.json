@@ -1,0 +1,40 @@
+{
+  "name": "@jorgebodega/typeorm-factory",
+  "version": "0.0.1",
+  "description": "🌱 A delightful way to use factories in your code.",
+  "license": "MIT",
+  "author": "Jorge Bodega <jorge.bodega.f@gmail.com> (https://github.com/jorgebodega)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jorgebodega/typeorm-factory.git"
+  },
+  "scripts": {
+    "build": "tsc --project ./tsconfig.build.json",
+    "format": "prettier --write \"{src,test}/**/*.ts\"",
+    "format:ci": "prettier --check \"{src,test}/**/*.ts\"",
+    "lint": "eslint \"{src,test}/**/*.ts\"",
+    "lint:fix": "yarn lint --fix",
+    "lint:ci": "yarn lint",
+    "prebuild": "rimraf dist",
+    "schema:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop",
+    "schema:log": "ts-node ./node_modules/typeorm/cli.js schema:log",
+    "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
+    "seed:run": "ts-node ./src/cli.ts seed",
+    "seed:config": "ts-node ./src/cli.ts config",
+    "test": "jest",
+    "test:ci": "jest --silent",
+    "test:cov": "jest --coverage --silent",
+    "test:watch": "jest --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+  },
+  "dependencies": {
+  },
+  "peerDependencies": {
+  },
+  "engines": {
+  }
+}

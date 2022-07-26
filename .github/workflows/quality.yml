@@ -1,0 +1,47 @@
+name: Quality checks
+on:
+  push:
+    branches: [ master, next ]
+  pull_request:
+    branches: [ master, next ]
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/gallium
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn format:ci
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/gallium
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint:ci
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/gallium
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn typecheck
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/gallium
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn test:ci

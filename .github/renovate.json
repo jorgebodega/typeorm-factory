@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "config:base",
+    "group:allNonMajor",
+    ":assignAndReview(jorgebodega)",
+    ":automergeDisabled",
+    ":disableDependencyDashboard",
+    ":semanticCommits",
+    ":semanticCommitScopeDisabled",
+    ":separatePatchReleases",
+    ":timezone(UTC+1)"
+  ],
+  "baseBranches": ["next"],
+  "schedule": ["every sunday"]
+}

@@ -1,0 +1,21 @@
+name: Generate coverage on CI
+on:
+  pull_request:
+    branches: [ master, next ]
+  push:
+    branches: [ master, next ]
+jobs:
+  coverage:
+    name: Test coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/gallium
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn test:cov
+      - uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

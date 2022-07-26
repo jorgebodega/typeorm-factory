@@ -1,0 +1,33 @@
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        required: false
+        default: false
+jobs:
+  release:
+    name: Generate a new release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/gallium
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - uses: cycjimmy/semantic-release-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        with:
+          semantic_version: 19
+          dry_run: ${{ github.event.inputs.dry-run }}
+      - name: Archive logs artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: npm-logs
+          path: |
+              /home/runner/.npm
