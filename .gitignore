@@ -1,4 +1,5 @@
 ### generated stuff ###
+coverage
 dist
 test.db
 .vscode
