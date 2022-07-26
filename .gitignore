@@ -1,6 +1,7 @@
 ### generated stuff ###
 dist
 test.db
+.vscode
 
 ### node ###
 node_modules
