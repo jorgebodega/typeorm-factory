@@ -1,0 +1,13 @@
+.github
+.vscode
+src
+test
+.eslintrc.js
+.nvmrc
+.prettierrc
+.releaserc.json
+.sgcrc
+jest.config.ts
+test.db
+tsconfig.build.json
+tsconfig.json
