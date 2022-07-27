@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@faker-js/faker': 7.3.0
   '@tsconfig/node16': 1.0.3
-  '@types/jest': 28.1.4
+  '@types/jest': 28.1.6
   '@types/node': 18.6.1
   '@typescript-eslint/eslint-plugin': 5.30.5
   '@typescript-eslint/parser': 5.30.5
@@ -22,7 +22,7 @@ specifiers:
 devDependencies:
   '@faker-js/faker': 7.3.0
   '@tsconfig/node16': 1.0.3
-  '@types/jest': 28.1.4
+  '@types/jest': 28.1.6
   '@types/node': 18.6.1
   '@typescript-eslint/eslint-plugin': 5.30.5_zdmw3c27sbylpcvpz7ojhgqlrq
   '@typescript-eslint/parser': 5.30.5_he2ccbldppg44uulnyq4rwocfa
@@ -836,8 +836,8 @@ packages:
       '@types/istanbul-lib-report': 3.0.0
     dev: true
 
-  /@types/jest/28.1.4:
-    resolution: {integrity: sha512-telv6G5N7zRJiLcI3Rs3o+ipZ28EnE+7EvF0pSrt2pZOMnAVI/f+6/LucDxOvcBcTeTL3JMF744BbVQAVBUQRA==}
+  /@types/jest/28.1.6:
+    resolution: {integrity: sha512-0RbGAFMfcBJKOmqRazM8L98uokwuwD5F8rHrv/ZMbrZBwVOWZUyPG6VFNscjYr/vjM3Vu4fRrCPbOs42AfemaQ==}
     dependencies:
       jest-matcher-utils: 28.1.3
       pretty-format: 28.1.3
