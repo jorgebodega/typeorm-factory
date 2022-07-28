@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "tsc --project ./tsconfig.build.json",
+    "checks": "pnpm format:ci && pnpm lint:ci && pnpm typecheck",
     "format": "prettier --write \"{src,test}/**/*.ts\"",
     "format:ci": "prettier --check \"{src,test}/**/*.ts\"",
     "lint": "eslint \"{src,test}/**/*.ts\"",

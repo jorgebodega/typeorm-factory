@@ -1,5 +1,4 @@
-import type { SaveOptions } from 'typeorm'
-import { fetchDataSource } from './datasource'
+import type { DataSource, SaveOptions } from 'typeorm'
 import { InstanceAttribute } from './instanceAttribute'
 import { LazyInstanceAttribute } from './lazyInstanceAttribute'
 import { Subfactory } from './subfactory'
@@ -7,6 +6,7 @@ import type { Constructable, FactorizedAttrs } from './types'
 
 export abstract class Factory<T> {
   protected abstract entity: Constructable<T>
+  protected abstract dataSource: DataSource
   protected abstract attrs(): FactorizedAttrs<T>
 
   /**
@@ -41,7 +41,7 @@ export abstract class Factory<T> {
 
     const entity = await this.makeEntity(Object.fromEntries(preloadedAttrs) as FactorizedAttrs<T>, true)
 
-    const em = fetchDataSource().createEntityManager()
+    const em = this.dataSource.createEntityManager()
     const savedEntity = await em.save<T>(entity, saveOptions)
 
     await this.applyLazyAttributes(savedEntity, attrs, true)
