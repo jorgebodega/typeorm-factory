@@ -1,4 +1,4 @@
-import { Factory, InstanceAttribute, LazyInstanceAttribute, Subfactory } from '../src'
+import { CollectionSubfactory, Factory, InstanceAttribute, LazyInstanceAttribute } from '../src'
 import { dataSource } from './fixtures/dataSource'
 import { Pet } from './fixtures/Pet.entity'
 import { PetFactory } from './fixtures/Pet.factory'
@@ -72,7 +72,7 @@ describe(Factory, () => {
 
       test('Should make a new entity with multiple subfactories', async () => {
         const userMaked = await factory.make({
-          pets: new LazyInstanceAttribute((instance) => new Subfactory(PetFactory, { owner: instance }, 1)),
+          pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
         })
 
         expect(userMaked.pets).toBeInstanceOf(Array)
@@ -196,7 +196,7 @@ describe(Factory, () => {
 
       test('Should create a new entity with multiple subfactories', async () => {
         const userCreated = await factory.create({
-          pets: new LazyInstanceAttribute((instance) => new Subfactory(PetFactory, { owner: instance }, 1)),
+          pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
         })
 
         expect(userCreated.pets).toBeInstanceOf(Array)

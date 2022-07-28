@@ -1,7 +1,7 @@
 import type { DataSource, SaveOptions } from 'typeorm'
 import { InstanceAttribute } from './instanceAttribute'
 import { LazyInstanceAttribute } from './lazyInstanceAttribute'
-import { Subfactory } from './subfactory'
+import { BaseSubfactory } from './subfactories'
 import type { Constructable, FactorizedAttrs } from './types'
 
 export abstract class Factory<T> {
@@ -96,7 +96,7 @@ export abstract class Factory<T> {
   }
 
   private static resolveValue(value: unknown, shouldPersist: boolean) {
-    if (value instanceof Subfactory) {
+    if (value instanceof BaseSubfactory) {
       return shouldPersist ? value.create() : value.make()
     } else if (value instanceof Function) {
       return value()
