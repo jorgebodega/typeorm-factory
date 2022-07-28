@@ -1,6 +1,6 @@
 {
   "name": "@jorgebodega/typeorm-factory",
-  "version": "1.0.0-next.1",
+  "version": "1.0.0",
   "description": "🌱 A delightful way to use factories in your code.",
   "license": "MIT",
   "author": "Jorge Bodega <jorge.bodega.f@gmail.com> (https://github.com/jorgebodega)",
