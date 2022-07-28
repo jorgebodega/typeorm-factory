@@ -1,5 +1,4 @@
 export * from './factory'
-export * from './instanceAttribute'
-export * from './lazyInstanceAttribute'
+export * from './instanceAttributes'
 export * from './subfactories'
 export * from './types'

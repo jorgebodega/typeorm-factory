@@ -1,5 +1,5 @@
-import type { LazyAttribute } from './lazyAttribute'
-import { CollectionSubfactory, SingleSubfactory } from './subfactories'
+import type { InstanceAttribute } from './instanceAttributes'
+import type { CollectionSubfactory, SingleSubfactory } from './subfactories'
 
 export type Constructable<T> = new () => T
 export type FactorizedAttr<V> =
@@ -8,6 +8,6 @@ export type FactorizedAttr<V> =
   | CollectionSubfactory<V extends Array<infer U> ? U : never>
   | SingleSubfactory<V extends Array<unknown> ? never : V>
 export type FactorizedAttrs<T> = {
-  [K in keyof Partial<T>]: FactorizedAttr<T[K]> | LazyAttribute<T, FactorizedAttr<T[K]>>
+  [K in keyof Partial<T>]: FactorizedAttr<T[K]> | InstanceAttribute<T, FactorizedAttr<T[K]>>
 }
-export type LazyAttributeCallback<T, V> = (entity: T) => V
+export type InstanceAttributeCallback<T, V> = (entity: T) => V

@@ -1,6 +1,5 @@
 import type { DataSource, SaveOptions } from 'typeorm'
-import { InstanceAttribute } from './instanceAttribute'
-import { LazyInstanceAttribute } from './lazyInstanceAttribute'
+import { EagerInstanceAttribute, LazyInstanceAttribute } from './instanceAttributes'
 import { BaseSubfactory } from './subfactories'
 import type { Constructable, FactorizedAttrs } from './types'
 
@@ -74,7 +73,7 @@ export abstract class Factory<T> {
 
     await Promise.all(
       Object.entries(attrs).map(async ([key, value]) => {
-        if (value instanceof InstanceAttribute) {
+        if (value instanceof EagerInstanceAttribute) {
           const newAttrib = value.resolve(entity)
           Object.assign(entity, { [key]: await Factory.resolveValue(newAttrib, shouldPersist) })
         }
