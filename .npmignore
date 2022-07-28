@@ -2,6 +2,7 @@
 .vscode
 src
 test
+.commitlintrc
 .eslintrc.js
 .nvmrc
 .prettierrc
