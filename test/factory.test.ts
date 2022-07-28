@@ -1,4 +1,4 @@
-import { Factory, InstanceAttribute, LazyInstanceAttribute, Subfactory, useDataSource } from '../src'
+import { Factory, InstanceAttribute, LazyInstanceAttribute, Subfactory } from '../src'
 import { dataSource } from './fixtures/dataSource'
 import { Pet } from './fixtures/Pet.entity'
 import { PetFactory } from './fixtures/Pet.factory'
@@ -123,7 +123,8 @@ describe(Factory, () => {
 
   describe(Factory.prototype.create, () => {
     beforeAll(async () => {
-      await useDataSource(dataSource, { synchronize: true }, true)
+      await dataSource.initialize()
+      await dataSource.synchronize()
     })
 
     afterAll(async () => {
@@ -234,7 +235,8 @@ describe(Factory, () => {
 
   describe(Factory.prototype.createMany, () => {
     beforeAll(async () => {
-      await useDataSource(dataSource, { synchronize: true }, true)
+      await dataSource.initialize()
+      await dataSource.synchronize()
     })
 
     afterAll(async () => {
