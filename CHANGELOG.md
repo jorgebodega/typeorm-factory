@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/jorgebodega/typeorm-factory/compare/v1.1.0...v1.1.1) (2022-07-28)
+
+
+### Bug Fixes
+
+* add missing declaration types for typescript ([7dd62fb](https://github.com/jorgebodega/typeorm-factory/commit/7dd62fb59e41be3b1609f645b9f8a2554b1d8bac))
+
 ## [1.1.1-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v1.1.0...v1.1.1-next.1) (2022-07-28)
 
 
