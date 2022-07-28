@@ -52,5 +52,8 @@
   },
   "peerDependencies": {
     "typeorm": "^0.3.0"
+  },
+  "dependencies": {
+    "tslib": "2.4.0"
   }
 }
