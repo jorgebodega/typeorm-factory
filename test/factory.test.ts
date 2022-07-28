@@ -1,4 +1,4 @@
-import { CollectionSubfactory, Factory, InstanceAttribute, LazyInstanceAttribute } from '../src'
+import { CollectionSubfactory, EagerInstanceAttribute, Factory, LazyInstanceAttribute } from '../src'
 import { dataSource } from './fixtures/dataSource'
 import { Pet } from './fixtures/Pet.entity'
 import { PetFactory } from './fixtures/Pet.factory'
@@ -50,7 +50,7 @@ describe(Factory, () => {
 
       test('Should make a new entity with instance attributes', async () => {
         const userMaked = await factory.make({
-          email: new InstanceAttribute((instance) =>
+          email: new EagerInstanceAttribute((instance) =>
             [instance.name.toLowerCase(), instance.lastName.toLowerCase(), '@email.com'].join(''),
           ),
         })
@@ -61,7 +61,7 @@ describe(Factory, () => {
 
       test('Should make a new entity with lazy instance attributes', async () => {
         const userMaked = await factory.make({
-          email: new InstanceAttribute((instance) =>
+          email: new EagerInstanceAttribute((instance) =>
             [instance.name.toLowerCase(), instance.lastName.toLowerCase(), '@email.com'].join(''),
           ),
         })
@@ -174,7 +174,7 @@ describe(Factory, () => {
 
       test('Should create a new entity with instance attributes', async () => {
         const userCreated = await factory.create({
-          email: new InstanceAttribute((instance) =>
+          email: new EagerInstanceAttribute((instance) =>
             [instance.name.toLowerCase(), instance.lastName.toLowerCase(), '@email.com'].join(''),
           ),
         })
@@ -185,7 +185,7 @@ describe(Factory, () => {
 
       test('Should create a new entity with lazy instance attributes', async () => {
         const userCreated = await factory.create({
-          email: new InstanceAttribute((instance) =>
+          email: new EagerInstanceAttribute((instance) =>
             [instance.name.toLowerCase(), instance.lastName.toLowerCase(), '@email.com'].join(''),
           ),
         })
