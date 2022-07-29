@@ -48,7 +48,7 @@
     - [Simple value](#simple-value)
     - [Function](#function)
     - [InstanceAttribute](#instanceattribute)
-    - [`Subfactory`](#subfactory)
+    - [Subfactory](#subfactory)
 
 # Installation
 
