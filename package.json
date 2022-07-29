@@ -1,6 +1,12 @@
 {
   "name": "@jorgebodega/typeorm-factory",
-  "version": "1.1.1",
+  "version": "1.1.2-next.1",
+  "keywords": [
+    "typeorm",
+    "factory",
+    "entity",
+    "orm"
+  ],
   "description": "🌱 A delightful way to use factories in your code.",
   "license": "MIT",
   "author": "Jorge Bodega <jorge.bodega.f@gmail.com> (https://github.com/jorgebodega)",
