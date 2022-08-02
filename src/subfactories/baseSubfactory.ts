@@ -8,14 +8,14 @@ export abstract class BaseSubfactory<T> {
     this.factoryInstance = new factory()
   }
 
-  public async createAndFlush() {
-    const entity = await this.create()
+  public async createAndFlush(shouldRegister?: boolean) {
+    const entity = await this.create(shouldRegister)
     const result = [entity, this.factoryInstance.getCreatedEntities()]
     this.factoryInstance.flushEntities()
 
     return result
   }
 
-  abstract create(): Promise<T> | Promise<T[]>
+  abstract create(shouldRegister?: boolean): Promise<T> | Promise<T[]>
   abstract make(): Promise<T> | Promise<T[]>
 }

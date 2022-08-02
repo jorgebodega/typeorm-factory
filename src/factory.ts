@@ -16,8 +16,8 @@ export abstract class Factory<T> {
   async make(overrideParams: Partial<FactorizedAttrs<T>> = {}): Promise<T> {
     const attrs = { ...this.attrs(), ...overrideParams }
 
-    const entity = await this.makeEntity(attrs, false)
-    await this.applyLazyAttributes(entity, attrs, false)
+    const entity = await this.makeEntity(attrs, false, false)
+    await this.applyLazyAttributes(entity, attrs, false, false)
 
     return entity
   }
@@ -33,23 +33,63 @@ export abstract class Factory<T> {
     return list
   }
 
+  public async create(overrideParams?: Partial<FactorizedAttrs<T>>): Promise<T>
+  public async create(overrideParams?: Partial<FactorizedAttrs<T>>, shouldRegister?: boolean): Promise<T>
+  public async create(overrideParams?: Partial<FactorizedAttrs<T>>, saveOptions?: SaveOptions): Promise<T>
+  public async create(
+    overrideParams?: Partial<FactorizedAttrs<T>>,
+    saveOptions?: SaveOptions,
+    shouldRegister?: boolean,
+  ): Promise<T>
+
   /**
    * Create a new entity and persist it
    */
-  async create(overrideParams: Partial<FactorizedAttrs<T>> = {}, saveOptions?: SaveOptions): Promise<T> {
+  public async create(
+    overrideParams?: Partial<FactorizedAttrs<T>>,
+    saveOptionsOrShouldRegister?: SaveOptions | boolean,
+    shouldRegister?: boolean,
+  ): Promise<T> {
+    const saveOptions = typeof saveOptionsOrShouldRegister === 'object' ? saveOptionsOrShouldRegister : undefined
+    const shouldRegisterComputed =
+      typeof saveOptionsOrShouldRegister === 'boolean' ? saveOptionsOrShouldRegister : shouldRegister || false
+
     const attrs = { ...this.attrs(), ...overrideParams }
     const preloadedAttrs = Object.entries(attrs).filter(([, value]) => !(value instanceof LazyInstanceAttribute))
 
-    const entity = await this.makeEntity(Object.fromEntries(preloadedAttrs) as FactorizedAttrs<T>, true)
+    const entity = await this.makeEntity(
+      Object.fromEntries(preloadedAttrs) as FactorizedAttrs<T>,
+      true,
+      shouldRegisterComputed,
+    )
 
     const em = this.dataSource.createEntityManager()
     const savedEntity = await em.save<T>(entity, saveOptions)
-    this.createdEntities.push(savedEntity)
+    if (shouldRegisterComputed) this.createdEntities.push(savedEntity)
 
-    await this.applyLazyAttributes(savedEntity, attrs, true)
+    await this.applyLazyAttributes(savedEntity, attrs, true, shouldRegisterComputed)
 
     return em.save<T>(savedEntity, saveOptions)
   }
+
+  public async createMany(amount: number): Promise<T[]>
+  public async createMany(amount: number, overrideParams?: Partial<FactorizedAttrs<T>>): Promise<T[]>
+  public async createMany(
+    amount: number,
+    overrideParams?: Partial<FactorizedAttrs<T>>,
+    shouldRegister?: boolean,
+  ): Promise<T[]>
+  public async createMany(
+    amount: number,
+    overrideParams?: Partial<FactorizedAttrs<T>>,
+    saveOptions?: SaveOptions,
+  ): Promise<T[]>
+  public async createMany(
+    amount: number,
+    overrideParams?: Partial<FactorizedAttrs<T>>,
+    saveOptions?: SaveOptions,
+    shouldRegister?: boolean,
+  ): Promise<T[]>
 
   /**
    * Create many new entities and persist them
@@ -57,11 +97,16 @@ export abstract class Factory<T> {
   async createMany(
     amount: number,
     overrideParams: Partial<FactorizedAttrs<T>> = {},
-    saveOptions?: SaveOptions,
+    saveOptionsOrShouldRegister?: SaveOptions | boolean,
+    shouldRegister?: boolean,
   ): Promise<T[]> {
+    const saveOptions = typeof saveOptionsOrShouldRegister === 'object' ? saveOptionsOrShouldRegister : undefined
+    const shouldRegisterComputed =
+      typeof saveOptionsOrShouldRegister === 'boolean' ? saveOptionsOrShouldRegister : shouldRegister || false
+
     const list = []
     for (let index = 0; index < amount; index++) {
-      list[index] = await this.create(overrideParams, saveOptions)
+      list[index] = await this.create(overrideParams, saveOptions, shouldRegisterComputed)
     }
     return list
   }
@@ -86,7 +131,7 @@ export abstract class Factory<T> {
     this.createdEntities = []
   }
 
-  private async makeEntity(attrs: FactorizedAttrs<T>, shouldPersist: boolean) {
+  private async makeEntity(attrs: FactorizedAttrs<T>, shouldPersist: boolean, shouldRegister: boolean) {
     const entity = new this.entity()
 
     await Promise.all(
@@ -95,7 +140,7 @@ export abstract class Factory<T> {
           return !(value instanceof EagerInstanceAttribute || value instanceof LazyInstanceAttribute)
         })
         .map(async ([key, value]) => {
-          Object.assign(entity, { [key]: await this.resolveValue(value, shouldPersist) })
+          Object.assign(entity, { [key]: await this.resolveValue(value, shouldPersist, shouldRegister) })
         }),
     )
 
@@ -105,7 +150,7 @@ export abstract class Factory<T> {
         .map(async ([key, value]) => {
           if (value instanceof EagerInstanceAttribute) {
             const newAttrib = value.resolve(entity)
-            Object.assign(entity, { [key]: await this.resolveValue(newAttrib, shouldPersist) })
+            Object.assign(entity, { [key]: await this.resolveValue(newAttrib, shouldPersist, shouldRegister) })
           }
         }),
     )
@@ -113,25 +158,30 @@ export abstract class Factory<T> {
     return entity
   }
 
-  private async applyLazyAttributes(entity: T, attrs: FactorizedAttrs<T>, shouldPersist: boolean) {
+  private async applyLazyAttributes(
+    entity: T,
+    attrs: FactorizedAttrs<T>,
+    shouldPersist: boolean,
+    shouldRegister: boolean,
+  ) {
     await Promise.all(
       Object.entries(attrs)
         .filter(([, value]) => value instanceof LazyInstanceAttribute)
         .map(async ([key, value]) => {
           if (value instanceof LazyInstanceAttribute) {
             const newAttrib = value.resolve(entity)
-            Object.assign(entity, { [key]: await this.resolveValue(newAttrib, shouldPersist) })
+            Object.assign(entity, { [key]: await this.resolveValue(newAttrib, shouldPersist, shouldRegister) })
           }
         }),
     )
   }
 
-  private async resolveValue(value: unknown, shouldPersist: boolean) {
+  private async resolveValue(value: unknown, shouldPersist: boolean, shouldRegister: boolean) {
     if (value instanceof BaseSubfactory) {
       if (!shouldPersist) return value.make()
 
-      const [entity, createdEntities] = await value.createAndFlush()
-      this.createdEntities.push(...createdEntities)
+      const [entity, createdEntities] = await value.createAndFlush(shouldRegister)
+      if (shouldRegister) this.createdEntities.push(...createdEntities)
       return entity
     } else if (value instanceof Function) {
       return value()

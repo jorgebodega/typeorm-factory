@@ -7,8 +7,8 @@ export class CollectionSubfactory<T> extends BaseSubfactory<T> {
     super(factory, values)
   }
 
-  create() {
-    return this.factoryInstance.createMany(this.count, this.values)
+  create(shouldRegister?: boolean) {
+    return this.factoryInstance.createMany(this.count, this.values, shouldRegister)
   }
 
   make() {

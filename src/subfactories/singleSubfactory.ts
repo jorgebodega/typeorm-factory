@@ -7,8 +7,8 @@ export class SingleSubfactory<T> extends BaseSubfactory<T> {
     super(factory, values)
   }
 
-  create() {
-    return this.factoryInstance.create(this.values)
+  create(shouldRegister?: boolean) {
+    return this.factoryInstance.create(this.values, shouldRegister)
   }
 
   make() {
