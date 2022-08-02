@@ -1,3 +1,11 @@
+## [1.1.2](https://github.com/jorgebodega/typeorm-factory/compare/v1.1.1...v1.1.2) (2022-07-29)
+
+
+### Bug Fixes
+
+* add keywords to package definition ([8e5d7cc](https://github.com/jorgebodega/typeorm-factory/commit/8e5d7cc593cb4da03948c09039fbf42c809a861f))
+* add missing declaration types for typescript ([41c5950](https://github.com/jorgebodega/typeorm-factory/commit/41c5950fdc1099506eb9af9fe3e27c08e11534f0))
+
 ## [1.1.2-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v1.1.1...v1.1.2-next.1) (2022-07-29)
 
 
