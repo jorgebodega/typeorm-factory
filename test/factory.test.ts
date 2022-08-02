@@ -90,6 +90,12 @@ describe(Factory, () => {
 
         expect(userMaked1).not.toStrictEqual(userMaked2)
       })
+
+      test('Should not register maked entity', async () => {
+        await factory.make()
+
+        expect(factory.getCreatedEntities()).toHaveLength(0)
+      })
     })
 
     describe(PetFactory, () => {
@@ -133,6 +139,11 @@ describe(Factory, () => {
 
     describe(UserFactory, () => {
       const factory = new UserFactory()
+
+      beforeEach(() => {
+        factory.cleanUp()
+        factory.flushEntities()
+      })
 
       test('Should create a new entity', async () => {
         const userCreated = await factory.create()
@@ -214,6 +225,40 @@ describe(Factory, () => {
         const userCreated2 = await factory.create()
 
         expect(userCreated1).not.toStrictEqual(userCreated2)
+      })
+
+      test('Should register created entity', async () => {
+        await factory.create()
+
+        expect(factory.getCreatedEntities()).toHaveLength(1)
+      })
+
+      test('Should register created entity with subfactory', async () => {
+        await factory.create({
+          pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
+        })
+
+        expect(factory.getCreatedEntities()).toHaveLength(2)
+      })
+
+      test('Should remove created entity with function', async () => {
+        await factory.create({
+          pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
+        })
+
+        const em = dataSource.createEntityManager()
+
+        let totalUsers = await em.count(User)
+        expect(totalUsers).toBe(1)
+        let totalPets = await em.count(Pet)
+        expect(totalPets).toBe(1)
+
+        await factory.cleanUp()
+
+        totalUsers = await em.count(User)
+        expect(totalUsers).toBe(0)
+        totalPets = await em.count(Pet)
+        expect(totalPets).toBe(0)
       })
     })
 
