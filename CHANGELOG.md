@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/jorgebodega/typeorm-factory/compare/v1.1.2...v1.1.3) (2022-08-17)
+
+
+### Bug Fixes
+
+* semantic release config ([3f8ef42](https://github.com/jorgebodega/typeorm-factory/commit/3f8ef42f0c93c9dc2f615a0b6cf245b18ecee63e))
+
 ## [1.1.2](https://github.com/jorgebodega/typeorm-factory/compare/v1.1.1...v1.1.2) (2022-07-29)
 
 
