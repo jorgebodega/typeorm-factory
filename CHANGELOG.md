@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/jorgebodega/typeorm-factory/compare/v1.1.3...v1.2.0) (2022-08-19)
+
+
+### Bug Fixes
+
+* semantic release config ([510e95a](https://github.com/jorgebodega/typeorm-factory/commit/510e95a03801816640c8789325eabe7ba9d701ab))
+
+
+### Features
+
+* allow pass instance to subfactory ([4bd8b8d](https://github.com/jorgebodega/typeorm-factory/commit/4bd8b8dc54f9842e37227ab4cbbe7e884b88cf1d))
+
 # [1.2.0-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v1.1.3...v1.2.0-next.1) (2022-08-19)
 
 
