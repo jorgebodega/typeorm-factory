@@ -2,29 +2,12 @@
 
 <p align="center">
   <img alt="NPM" src="https://img.shields.io/npm/l/@jorgebodega/typeorm-factory?style=for-the-badge">
-  <a href="https://www.npmjs.com/package/@jorgebodega/typeorm-factory">
-    <img alt="NPM latest version" src="https://img.shields.io/npm/v/@jorgebodega/typeorm-factory/latest?style=for-the-badge">
-  </a>
-  <a href="https://www.npmjs.com/package/@jorgebodega/typeorm-factory/v/next">
-    <img alt="NPM next version" src="https://img.shields.io/npm/v/@jorgebodega/typeorm-factory/next?style=for-the-badge">
-  </a>
-</p>
-
-<p align="center">
   <a href='https://coveralls.io/github/jorgebodega/typeorm-factory'>
     <img alt="Coveralls main branch" src="https://img.shields.io/coveralls/github/jorgebodega/typeorm-factory/main?style=for-the-badge">
   </a>
-  <a href='https://coveralls.io/github/jorgebodega/typeorm-factory?branch=next'>
-    <img alt="Coveralls next branch" src="https://img.shields.io/coveralls/github/jorgebodega/typeorm-factory/next?style=for-the-badge&label=coverage%40next">
-  </a>
 </p>
 
-<p align="center">
-  <img alt="Checks for main branch" src="https://img.shields.io/github/checks-status/jorgebodega/typeorm-factory/main?style=for-the-badge">
-  <a href='https://coveralls.io/github/jorgebodega/typeorm-factory'>
-    <img alt="Checks for next branch" src="https://img.shields.io/github/checks-status/jorgebodega/typeorm-factory/next?label=checks%40next&style=for-the-badge">
-  </a>
-</p>
+
 
 <p align="center">
   <b>A delightful way to use factories in your code.</b></br>
@@ -246,6 +229,20 @@ instead of the same with
 ```ts
 protected attrs: FactorizedAttrs<User> = {
   country: new SingleSubfactory(CountryFactory, {
+    name: faker.address.country(),
+  }),
+}
+```
+
+Subfactories could be created in two ways, allowing you to specify only the class or passing the instance already created. This could be useful if you have some specific class-related code in your factories:
+
+```ts
+protected attrs: FactorizedAttrs<User> = {
+  country: new SingleSubfactory(CountryFactory, {
+    name: faker.address.country(),
+  }),
+  // or
+  country: new SingleSubfactory(new CountryFactory(), {
     name: faker.address.country(),
   }),
 }
