@@ -1,4 +1,4 @@
-import { CollectionSubfactory, EagerInstanceAttribute, Factory, LazyInstanceAttribute } from '../src'
+import { CollectionSubfactory, EagerInstanceAttribute, Factory, LazyInstanceAttribute, SingleSubfactory } from '../src'
 import { dataSource } from './fixtures/dataSource'
 import { Pet } from './fixtures/Pet.entity'
 import { PetFactory } from './fixtures/Pet.factory'
@@ -84,6 +84,22 @@ describe(Factory, () => {
         })
       })
 
+      test('Should make a new entity with multiple existing subfactories', async () => {
+        const petFactory = new PetFactory()
+
+        const userMaked = await factory.make({
+          pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(petFactory, 1, { owner: instance })),
+        })
+
+        expect(userMaked.pets).toBeInstanceOf(Array)
+        expect(userMaked.pets).toHaveLength(1)
+        userMaked.pets.forEach(async (pet) => {
+          expect(pet.id).toBeUndefined()
+          expect(pet.owner).toBeInstanceOf(User)
+          expect(pet.owner.id).toBeUndefined()
+        })
+      })
+
       test('Should make two entities with different attributes', async () => {
         const userMaked1 = await factory.make()
         const userMaked2 = await factory.make()
@@ -97,6 +113,21 @@ describe(Factory, () => {
 
       test('Should make a new entity with single subfactory', async () => {
         const petMaked = await factory.make()
+
+        expect(petMaked).toBeInstanceOf(Pet)
+        expect(petMaked.id).toBeUndefined()
+        expect(petMaked.name).toBeDefined()
+        expect(petMaked.owner).toBeDefined()
+        expect(petMaked.owner).toBeInstanceOf(User)
+        expect(petMaked.owner.id).toBeUndefined()
+      })
+
+      test('Should make a new entity with single existing subfactory', async () => {
+        const userFactory = new UserFactory()
+
+        const petMaked = await factory.make({
+          owner: new LazyInstanceAttribute((instance) => new SingleSubfactory(userFactory, { pets: [instance] })),
+        })
 
         expect(petMaked).toBeInstanceOf(Pet)
         expect(petMaked.id).toBeUndefined()
