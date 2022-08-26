@@ -3,7 +3,7 @@ import { EagerInstanceAttribute, LazyInstanceAttribute } from './instanceAttribu
 import { BaseSubfactory } from './subfactories'
 import type { Constructable, FactorizedAttrs } from './types'
 
-export abstract class Factory<T> {
+export abstract class Factory<T extends object> {
   protected abstract entity: Constructable<T>
   protected abstract dataSource: DataSource
   protected abstract attrs(): FactorizedAttrs<T>
