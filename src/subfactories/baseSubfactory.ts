@@ -1,7 +1,7 @@
 import { Factory } from '../factory'
 import type { Constructable, FactorizedAttrs } from '../types'
 
-export abstract class BaseSubfactory<T> {
+export abstract class BaseSubfactory<T extends object> {
   protected factoryInstance: Factory<T>
 
   constructor(

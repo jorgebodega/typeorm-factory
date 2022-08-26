@@ -2,7 +2,7 @@ import type { Factory } from '../factory'
 import type { Constructable, FactorizedAttrs } from '../types'
 import { BaseSubfactory } from './baseSubfactory'
 
-export class CollectionSubfactory<T> extends BaseSubfactory<T> {
+export class CollectionSubfactory<T extends object> extends BaseSubfactory<T> {
   constructor(
     factoryOrFactoryInstance: Constructable<Factory<T>> | Factory<T>,
     private count: number,
