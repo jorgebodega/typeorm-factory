@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@faker-js/faker': 7.5.0
   '@tsconfig/node16': 1.0.3
-  '@types/jest': 29.0.1
+  '@types/jest': 29.0.3
   '@types/node': 18.7.6
   '@typescript-eslint/eslint-plugin': 5.38.0
   '@typescript-eslint/parser': 5.38.0
@@ -14,7 +14,7 @@ specifiers:
   prettier: 2.7.1
   rimraf: 3.0.2
   sqlite3: 5.1.1
-  ts-jest: 29.0.0
+  ts-jest: 29.0.1
   ts-node: 10.9.1
   tslib: 2.4.0
   typeorm: 0.3.9
@@ -26,7 +26,7 @@ dependencies:
 devDependencies:
   '@faker-js/faker': 7.5.0
   '@tsconfig/node16': 1.0.3
-  '@types/jest': 29.0.1
+  '@types/jest': 29.0.3
   '@types/node': 18.7.6
   '@typescript-eslint/eslint-plugin': 5.38.0_wsb62dxj2oqwgas4kadjymcmry
   '@typescript-eslint/parser': 5.38.0_irgkl5vooow2ydyo6aokmferha
@@ -37,7 +37,7 @@ devDependencies:
   prettier: 2.7.1
   rimraf: 3.0.2
   sqlite3: 5.1.1
-  ts-jest: 29.0.0_jksntdpmkmo5cthob65gehuuvi
+  ts-jest: 29.0.1_jksntdpmkmo5cthob65gehuuvi
   ts-node: 10.9.1_mbccaw7wm5e4marg7gk24f4eme
   typeorm: 0.3.9_yuhybd3zdsfklqg6lrsxy7ncdi
   typescript: 4.8.3
@@ -859,8 +859,8 @@ packages:
       '@types/istanbul-lib-report': 3.0.0
     dev: true
 
-  /@types/jest/29.0.1:
-    resolution: {integrity: sha512-CAZrjLRZs4xEdIrfrdV74xK1Vo/BKQZwUcjJv3gp6gMeV3BsVxMnXTcgtYOKyphT4DPPo7jxVEVhuwJTQn3oPQ==}
+  /@types/jest/29.0.3:
+    resolution: {integrity: sha512-F6ukyCTwbfsEX5F2YmVYmM5TcTHy1q9P5rWlRbrk56KyMh3v9xRGUO3aa8+SkvMi0SHXtASJv1283enXimC0Og==}
     dependencies:
       expect: 29.0.3
       pretty-format: 29.0.3
@@ -3965,8 +3965,8 @@ packages:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
     dev: true
 
-  /ts-jest/29.0.0_jksntdpmkmo5cthob65gehuuvi:
-    resolution: {integrity: sha512-OxUaigbv5Aon3OMLY9HBtwkGMs1upWE/URrmmVQFzzOcGlEPVuWzGmXUIkWGt/95Dj/T6MGuTrHHGL6kT6Yn8g==}
+  /ts-jest/29.0.1_jksntdpmkmo5cthob65gehuuvi:
+    resolution: {integrity: sha512-htQOHshgvhn93QLxrmxpiQPk69+M1g7govO1g6kf6GsjCv4uvRV0znVmDrrvjUrVCnTYeY4FBxTYYYD4airyJA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
     peerDependencies:
