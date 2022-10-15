@@ -1,3 +1,10 @@
+## [1.2.1-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v1.2.0...v1.2.1-next.1) (2022-10-15)
+
+
+### Bug Fixes
+
+* types should extends object ([84a081d](https://github.com/jorgebodega/typeorm-factory/commit/84a081dbfbbf9d2b3d140a726312f004f2c558d0))
+
 # [1.2.0](https://github.com/jorgebodega/typeorm-factory/compare/v1.1.3...v1.2.0) (2022-08-19)
 
 
