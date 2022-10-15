@@ -1,6 +1,6 @@
 {
   "name": "@jorgebodega/typeorm-factory",
-  "version": "1.2.0",
+  "version": "1.2.1-next.1",
   "keywords": [
     "typeorm",
     "factory",
