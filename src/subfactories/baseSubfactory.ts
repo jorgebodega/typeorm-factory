@@ -12,6 +12,14 @@ export abstract class BaseSubfactory<T extends object> {
       factoryOrFactoryInstance instanceof Factory ? factoryOrFactoryInstance : new factoryOrFactoryInstance()
   }
 
-  abstract create(): Promise<T> | Promise<T[]>
+  public async createAndFlush(shouldRegister?: boolean) {
+    const entity = await this.create(shouldRegister)
+    const result = [entity, this.factoryInstance.getCreatedEntities()]
+    this.factoryInstance.flushEntities()
+
+    return result
+  }
+
+  abstract create(shouldRegister?: boolean): Promise<T> | Promise<T[]>
   abstract make(): Promise<T> | Promise<T[]>
 }

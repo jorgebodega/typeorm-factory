@@ -106,6 +106,12 @@ describe(Factory, () => {
 
         expect(userMaked1).not.toStrictEqual(userMaked2)
       })
+
+      test('Should not register maked entity', async () => {
+        await factory.make()
+
+        expect(factory.getCreatedEntities()).toHaveLength(0)
+      })
     })
 
     describe(PetFactory, () => {
@@ -164,6 +170,11 @@ describe(Factory, () => {
 
     describe(UserFactory, () => {
       const factory = new UserFactory()
+
+      beforeEach(() => {
+        factory.cleanUp()
+        factory.flushEntities()
+      })
 
       test('Should create a new entity', async () => {
         const userCreated = await factory.create()
@@ -246,6 +257,63 @@ describe(Factory, () => {
 
         expect(userCreated1).not.toStrictEqual(userCreated2)
       })
+
+      test('Should not fail if save options are provided', async () => {
+        const userCreated = await factory.create(
+          {
+            name: 'john',
+          },
+          {
+            reload: true,
+          },
+        )
+
+        expect(userCreated.name).toBe('john')
+      })
+
+      test('Should not register created entity', async () => {
+        await factory.create()
+
+        expect(factory.getCreatedEntities()).toHaveLength(0)
+      })
+
+      test('Should register created entity', async () => {
+        await factory.create({}, true)
+
+        expect(factory.getCreatedEntities()).toHaveLength(1)
+      })
+
+      test('Should register created entity with subfactory', async () => {
+        await factory.create(
+          {
+            pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
+          },
+          true,
+        )
+
+        expect(factory.getCreatedEntities()).toHaveLength(2)
+      })
+
+      test('Should remove created entity with helper function', async () => {
+        await factory.create(
+          {
+            pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
+          },
+          true,
+        )
+
+        const em = dataSource.createEntityManager()
+
+        const totalUsers = await em.count(User)
+        const totalPets = await em.count(Pet)
+
+        await factory.cleanUp()
+
+        const totalUsersAfterCleanUp = await em.count(User)
+        expect(totalUsersAfterCleanUp).toBe(totalUsers - 1)
+        const totalPetsAfterCleanUp = await em.count(Pet)
+        expect(totalPetsAfterCleanUp).toBe(totalPets - 1)
+      })
     })
 
     describe(PetFactory, () => {
@@ -278,6 +346,17 @@ describe(Factory, () => {
       const count = 2
       const factory = new UserFactory()
       const entitiesCreated = await factory.createMany(count)
+
+      expect(entitiesCreated).toHaveLength(count)
+      entitiesCreated.forEach((entity) => {
+        expect(entity.id).toBeDefined()
+      })
+    })
+
+    test('Should not fail if save options are provided', async () => {
+      const count = 2
+      const factory = new UserFactory()
+      const entitiesCreated = await factory.createMany(count, {}, { reload: true })
 
       expect(entitiesCreated).toHaveLength(count)
       entitiesCreated.forEach((entity) => {
