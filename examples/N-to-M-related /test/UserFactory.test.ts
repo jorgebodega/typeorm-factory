@@ -23,7 +23,7 @@ describe(UserFactory, () => {
 
     test('Should make a new entity with relation', async () => {
       const userMaked = await factory.make({
-        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
+        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owners: [instance] })),
       })
 
       expect(userMaked).toBeInstanceOf(User)
@@ -36,8 +36,8 @@ describe(UserFactory, () => {
       userMaked.pets.forEach((pet) => {
         expect(pet).toBeInstanceOf(Pet)
         expect(pet.id).toBeUndefined()
-        expect(pet.owner).toBeDefined()
-        expect(pet.owner).toEqual(userMaked)
+        expect(pet.owners).toBeInstanceOf(Array)
+        expect(pet.owners).toHaveLength(1)
       })
     })
 
@@ -65,7 +65,7 @@ describe(UserFactory, () => {
     test('Should make many new entities with relations', async () => {
       const count = 2
       const entitiesMaked = await factory.makeMany(count, {
-        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
+        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owners: [instance] })),
       })
 
       expect(entitiesMaked).toHaveLength(count)
@@ -104,7 +104,7 @@ describe(UserFactory, () => {
 
     test('Should create a new entity with relation', async () => {
       const userCreated = await factory.create({
-        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
+        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owners: [instance] })),
       })
 
       expect(userCreated).toBeInstanceOf(User)
@@ -117,8 +117,8 @@ describe(UserFactory, () => {
       userCreated.pets.forEach((pet) => {
         expect(pet).toBeInstanceOf(Pet)
         expect(pet.id).toBeDefined()
-        expect(pet.owner).toBeDefined()
-        expect(pet.owner).toEqual(userCreated)
+        expect(pet.owners).toBeInstanceOf(Array)
+        expect(pet.owners).toHaveLength(1)
       })
     })
 
@@ -136,7 +136,7 @@ describe(UserFactory, () => {
 
     test('Should create one entity of each type', async () => {
       await factory.create({
-        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
+        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owners: [instance] })),
       })
 
       const [totalUsers, totalPets] = await Promise.all([
@@ -184,7 +184,7 @@ describe(UserFactory, () => {
     test('Should create many new entities with relations', async () => {
       const count = 2
       const entitiesMaked = await factory.createMany(count, {
-        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
+        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owners: [instance] })),
       })
 
       expect(entitiesMaked).toHaveLength(count)
@@ -211,7 +211,23 @@ describe(UserFactory, () => {
     test('Should create many entities of each type with relations', async () => {
       const count = 2
       await factory.createMany(2, {
-        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
+        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owners: [instance] })),
+      })
+
+      const [totalUsers, totalPets] = await Promise.all([
+        dataSource.createEntityManager().count(User),
+        dataSource.createEntityManager().count(Pet),
+      ])
+
+      expect(totalUsers).toBe(count)
+      expect(totalPets).toBe(count)
+    })
+
+    test('Should create many entities related with many other entities', async () => {
+      const count = 2
+      const usersCreated = await factory.createMany(2)
+      await new PetFactory().createMany(2, {
+        owners: usersCreated,
       })
 
       const [totalUsers, totalPets] = await Promise.all([
