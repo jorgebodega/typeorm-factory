@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "dist", "test", "jest.config.ts"],
+  "exclude": ["dist", "examples", "jest.config.ts", "node_modules", "test"],
   "compilerOptions": {
     "declaration": true,
     "importHelpers": true,

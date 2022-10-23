@@ -155,7 +155,10 @@ describe(Factory, () => {
   describe(Factory.prototype.create, () => {
     beforeAll(async () => {
       await dataSource.initialize()
-      await dataSource.synchronize()
+    })
+
+    beforeEach(async () => {
+      await dataSource.synchronize(true)
     })
 
     afterAll(async () => {
@@ -267,7 +270,10 @@ describe(Factory, () => {
   describe(Factory.prototype.createMany, () => {
     beforeAll(async () => {
       await dataSource.initialize()
-      await dataSource.synchronize()
+    })
+
+    beforeEach(async () => {
+      await dataSource.synchronize(true)
     })
 
     afterAll(async () => {
