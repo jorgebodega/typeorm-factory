@@ -58,9 +58,6 @@ describe(UserFactory, () => {
     test('Should create a new entity', async () => {
       const userCreated = await factory.create()
 
-      console.error(await dataSource.createEntityManager().count(User))
-      console.error(await dataSource.createEntityManager().count(Pet))
-
       expect(userCreated).toBeInstanceOf(User)
       expect(userCreated.id).toBeDefined()
       expect(userCreated.name).toBeDefined()
@@ -107,9 +104,6 @@ describe(UserFactory, () => {
     test('Should create many new entities', async () => {
       const count = 2
       const entitiesCreated = await factory.createMany(count)
-
-      console.error(await dataSource.createEntityManager().count(User))
-      console.error(await dataSource.createEntityManager().count(Pet))
 
       expect(entitiesCreated).toHaveLength(count)
       entitiesCreated.forEach((entity) => {
