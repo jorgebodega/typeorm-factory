@@ -18,6 +18,6 @@ export class User {
   @Column({ name: 'last_name' })
   lastName!: string
 
-  @OneToOne(() => Pet, (pet) => pet.owner)
+  @OneToOne(() => Pet, (pet) => pet.owner, { nullable: false })
   pet!: Pet
 }

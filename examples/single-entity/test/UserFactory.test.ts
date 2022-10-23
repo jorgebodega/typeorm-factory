@@ -38,7 +38,10 @@ describe(UserFactory, () => {
   describe(UserFactory.prototype.create, () => {
     beforeAll(async () => {
       await dataSource.initialize()
-      await dataSource.synchronize()
+    })
+
+    beforeEach(async () => {
+      await dataSource.synchronize(true)
     })
 
     afterAll(async () => {
@@ -65,7 +68,10 @@ describe(UserFactory, () => {
   describe(UserFactory.prototype.createMany, () => {
     beforeAll(async () => {
       await dataSource.initialize()
-      await dataSource.synchronize()
+    })
+
+    beforeEach(async () => {
+      await dataSource.synchronize(true)
     })
 
     afterAll(async () => {

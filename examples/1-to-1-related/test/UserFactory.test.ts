@@ -45,7 +45,10 @@ describe(UserFactory, () => {
   describe(UserFactory.prototype.create, () => {
     beforeAll(async () => {
       await dataSource.initialize()
-      await dataSource.synchronize()
+    })
+
+    beforeEach(async () => {
+      await dataSource.synchronize(true)
     })
 
     afterAll(async () => {
@@ -55,6 +58,9 @@ describe(UserFactory, () => {
     test('Should create a new entity', async () => {
       const userCreated = await factory.create()
 
+      console.error(await dataSource.createEntityManager().count(User))
+      console.error(await dataSource.createEntityManager().count(Pet))
+
       expect(userCreated).toBeInstanceOf(User)
       expect(userCreated.id).toBeDefined()
       expect(userCreated.name).toBeDefined()
@@ -63,6 +69,18 @@ describe(UserFactory, () => {
       expect(userCreated.pet).toBeInstanceOf(Pet)
       expect(userCreated.pet.id).toBeDefined()
       expect(userCreated.pet.name).toBeDefined()
+    })
+
+    test('Should create one entity of each type', async () => {
+      await factory.create()
+
+      const [totalUsers, totalPets] = await Promise.all([
+        dataSource.createEntityManager().count(User),
+        dataSource.createEntityManager().count(Pet),
+      ])
+
+      expect(totalUsers).toBe(1)
+      expect(totalPets).toBe(1)
     })
 
     test('Should create two entities with different attributes', async () => {
@@ -76,7 +94,10 @@ describe(UserFactory, () => {
   describe(UserFactory.prototype.createMany, () => {
     beforeAll(async () => {
       await dataSource.initialize()
-      await dataSource.synchronize()
+    })
+
+    beforeEach(async () => {
+      await dataSource.synchronize(true)
     })
 
     afterAll(async () => {
@@ -87,12 +108,28 @@ describe(UserFactory, () => {
       const count = 2
       const entitiesCreated = await factory.createMany(count)
 
+      console.error(await dataSource.createEntityManager().count(User))
+      console.error(await dataSource.createEntityManager().count(Pet))
+
       expect(entitiesCreated).toHaveLength(count)
       entitiesCreated.forEach((entity) => {
         expect(entity.id).toBeDefined()
         expect(entity.pet).toBeInstanceOf(Pet)
         expect(entity.pet.id).toBeDefined()
       })
+    })
+
+    test('Should create many entities of each type', async () => {
+      const count = 2
+      await factory.createMany(2)
+
+      const [totalUsers, totalPets] = await Promise.all([
+        dataSource.createEntityManager().count(User),
+        dataSource.createEntityManager().count(Pet),
+      ])
+
+      expect(totalUsers).toBe(count)
+      expect(totalPets).toBe(count)
     })
   })
 })

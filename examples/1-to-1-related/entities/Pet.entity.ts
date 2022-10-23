@@ -9,7 +9,7 @@ export class Pet {
   @Column()
   name!: string
 
-  @OneToOne(() => User, (user) => user.pet)
+  @OneToOne(() => User, (user) => user.pet, { nullable: false })
   @JoinColumn({ name: 'owner_id' })
   owner!: User
 }

@@ -15,7 +15,9 @@ export abstract class Factory<T extends object> {
     const attrs = { ...this.attrs(), ...overrideParams }
 
     const entity = await this.makeEntity(attrs, false)
-    await this.applyLazyAttributes(entity, attrs, false)
+
+    await this.applyEagerInstanceAttributes(entity, attrs, false)
+    await this.applyLazyInstanceAttributes(entity, attrs, false)
 
     return entity
   }
@@ -39,11 +41,12 @@ export abstract class Factory<T extends object> {
     const preloadedAttrs = Object.entries(attrs).filter(([, value]) => !(value instanceof LazyInstanceAttribute))
 
     const entity = await this.makeEntity(Object.fromEntries(preloadedAttrs) as FactorizedAttrs<T>, true)
+    await this.applyEagerInstanceAttributes(entity, attrs, true)
 
     const em = this.dataSource.createEntityManager()
     const savedEntity = await em.save<T>(entity, saveOptions)
 
-    await this.applyLazyAttributes(savedEntity, attrs, true)
+    await this.applyLazyInstanceAttributes(savedEntity, attrs, true)
     return em.save<T>(savedEntity, saveOptions)
   }
 
@@ -71,6 +74,10 @@ export abstract class Factory<T extends object> {
       }),
     )
 
+    return entity
+  }
+
+  private async applyEagerInstanceAttributes(entity: T, attrs: FactorizedAttrs<T>, shouldPersist: boolean) {
     await Promise.all(
       Object.entries(attrs).map(async ([key, value]) => {
         if (value instanceof EagerInstanceAttribute) {
@@ -79,11 +86,9 @@ export abstract class Factory<T extends object> {
         }
       }),
     )
-
-    return entity
   }
 
-  private async applyLazyAttributes(entity: T, attrs: FactorizedAttrs<T>, shouldPersist: boolean) {
+  private async applyLazyInstanceAttributes(entity: T, attrs: FactorizedAttrs<T>, shouldPersist: boolean) {
     await Promise.all(
       Object.entries(attrs).map(async ([key, value]) => {
         if (value instanceof LazyInstanceAttribute) {
