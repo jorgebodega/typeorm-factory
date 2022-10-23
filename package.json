@@ -1,38 +1,8 @@
 {
-  "name": "@jorgebodega/typeorm-factory",
-  "version": "1.2.1-next.1",
-  "keywords": [
-    "typeorm",
-    "factory",
-    "entity",
-    "orm"
-  ],
-  "description": "🌱 A delightful way to use factories in your code.",
-  "license": "MIT",
   "author": "Jorge Bodega <jorge.bodega.f@gmail.com> (https://github.com/jorgebodega)",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jorgebodega/typeorm-factory.git"
-  },
-  "scripts": {
-    "build": "tsc --project ./tsconfig.build.json",
-    "checks": "pnpm format:ci && pnpm lint:ci && pnpm typecheck",
-    "format": "prettier --write \"{src,test}/**/*.ts\"",
-    "format:ci": "prettier --check \"{src,test}/**/*.ts\"",
-    "lint": "eslint \"{src,test}/**/*.ts\"",
-    "lint:fix": "pnpm lint --fix",
-    "lint:ci": "pnpm lint",
-    "prebuild": "rimraf dist",
-    "test": "jest",
-    "test:ci": "jest --silent",
-    "test:cov": "jest --coverage --silent",
-    "test:watch": "jest --watch",
-    "typecheck": "tsc --noEmit"
-  },
-  "engines": {
-    "node": ">=14"
+  "description": "🌱 A delightful way to use factories in your code.",
+  "dependencies": {
+    "tslib": "2.4.0"
   },
   "devDependencies": {
     "@faker-js/faker": "7.6.0",
@@ -53,10 +23,41 @@
     "typeorm": "0.3.10",
     "typescript": "4.8.4"
   },
+  "engines": {
+    "node": ">=14"
+  },
+  "keywords": [
+    "typeorm",
+    "factory",
+    "entity",
+    "orm"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "name": "@jorgebodega/typeorm-factory",
+  "packageManager": "pnpm@7.14.0",
   "peerDependencies": {
     "typeorm": "^0.3.0"
   },
-  "dependencies": {
-    "tslib": "2.4.0"
-  }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jorgebodega/typeorm-factory.git"
+  },
+  "scripts": {
+    "build": "tsc --project ./tsconfig.build.json",
+    "checks": "pnpm format:ci && pnpm lint:ci && pnpm typecheck",
+    "format:ci": "prettier --check \"{src,test}/**/*.ts\"",
+    "format": "prettier --write \"{src,test}/**/*.ts\"",
+    "lint:ci": "pnpm lint",
+    "lint:fix": "pnpm lint --fix",
+    "lint": "eslint \"{src,test}/**/*.ts\"",
+    "prebuild": "rimraf dist",
+    "test:ci": "jest --silent",
+    "test:cov": "jest --coverage --silent",
+    "test:watch": "jest --watch",
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
+  },
+  "types": "dist/index.d.ts",
+  "version": "1.2.1-next.1"
 }
