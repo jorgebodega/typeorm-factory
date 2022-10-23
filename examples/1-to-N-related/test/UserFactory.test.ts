@@ -1,4 +1,4 @@
-import { LazyInstanceAttribute, SingleSubfactory } from '../../../src'
+import { CollectionSubfactory, LazyInstanceAttribute } from '../../../src'
 import { dataSource } from '../dataSource'
 import { Pet } from '../entities/Pet.entity'
 import { User } from '../entities/User.entity'
@@ -9,7 +9,7 @@ describe(UserFactory, () => {
   const factory = new UserFactory()
 
   describe(UserFactory.prototype.make, () => {
-    test('Should make a new entity without relation', async () => {
+    test('Should make a new entity', async () => {
       const userMaked = await factory.make()
 
       expect(userMaked).toBeInstanceOf(User)
@@ -17,12 +17,13 @@ describe(UserFactory, () => {
       expect(userMaked.name).toBeDefined()
       expect(userMaked.lastName).toBeDefined()
 
-      expect(userMaked.pet).toBeUndefined()
+      expect(userMaked.pets).toBeInstanceOf(Array)
+      expect(userMaked.pets).toHaveLength(0)
     })
 
     test('Should make a new entity with relation', async () => {
       const userMaked = await factory.make({
-        pet: new LazyInstanceAttribute((instance) => new SingleSubfactory(PetFactory, { owner: instance })),
+        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
       })
 
       expect(userMaked).toBeInstanceOf(User)
@@ -30,11 +31,14 @@ describe(UserFactory, () => {
       expect(userMaked.name).toBeDefined()
       expect(userMaked.lastName).toBeDefined()
 
-      expect(userMaked.pet).toBeDefined()
-      expect(userMaked.pet).toBeInstanceOf(Pet)
-      expect(userMaked.pet?.id).toBeUndefined()
-      expect(userMaked.pet?.name).toBeDefined()
-      expect(userMaked.pet?.owner).toEqual(userMaked)
+      expect(userMaked.pets).toBeInstanceOf(Array)
+      expect(userMaked.pets).toHaveLength(1)
+      userMaked.pets.forEach((pet) => {
+        expect(pet).toBeInstanceOf(Pet)
+        expect(pet.id).toBeUndefined()
+        expect(pet.owner).toBeDefined()
+        expect(pet.owner).toEqual(userMaked)
+      })
     })
 
     test('Should make two entities with different attributes', async () => {
@@ -46,28 +50,29 @@ describe(UserFactory, () => {
   })
 
   describe(UserFactory.prototype.makeMany, () => {
-    test('Should make many new entities without relation', async () => {
+    test('Should make many new entities', async () => {
       const count = 2
       const entitiesMaked = await factory.makeMany(count)
 
       expect(entitiesMaked).toHaveLength(count)
       entitiesMaked.forEach((entity) => {
         expect(entity.id).toBeUndefined()
-        expect(entity.pet).toBeUndefined()
+        expect(entity.pets).toBeInstanceOf(Array)
+        expect(entity.pets).toHaveLength(0)
       })
     })
 
-    test('Should make many new entities with relation', async () => {
+    test('Should make many new entities with relations', async () => {
       const count = 2
       const entitiesMaked = await factory.makeMany(count, {
-        pet: new LazyInstanceAttribute((instance) => new SingleSubfactory(PetFactory, { owner: instance })),
+        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
       })
 
       expect(entitiesMaked).toHaveLength(count)
       entitiesMaked.forEach((entity) => {
         expect(entity.id).toBeUndefined()
-        expect(entity.pet).toBeInstanceOf(Pet)
-        expect(entity.pet?.id).toBeUndefined()
+        expect(entity.pets).toBeInstanceOf(Array)
+        expect(entity.pets).toHaveLength(1)
       })
     })
   })
@@ -85,7 +90,7 @@ describe(UserFactory, () => {
       await dataSource.destroy()
     })
 
-    test('Should create a new entity without relation', async () => {
+    test('Should create a new entity', async () => {
       const userCreated = await factory.create()
 
       expect(userCreated).toBeInstanceOf(User)
@@ -93,12 +98,13 @@ describe(UserFactory, () => {
       expect(userCreated.name).toBeDefined()
       expect(userCreated.lastName).toBeDefined()
 
-      expect(userCreated.pet).toBeUndefined()
+      expect(userCreated.pets).toBeInstanceOf(Array)
+      expect(userCreated.pets).toHaveLength(0)
     })
 
     test('Should create a new entity with relation', async () => {
       const userCreated = await factory.create({
-        pet: new LazyInstanceAttribute((instance) => new SingleSubfactory(PetFactory, { owner: instance })),
+        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
       })
 
       expect(userCreated).toBeInstanceOf(User)
@@ -106,13 +112,17 @@ describe(UserFactory, () => {
       expect(userCreated.name).toBeDefined()
       expect(userCreated.lastName).toBeDefined()
 
-      expect(userCreated.pet).toBeDefined()
-      expect(userCreated.pet).toBeInstanceOf(Pet)
-      expect(userCreated.pet?.id).toBeDefined()
-      expect(userCreated.pet?.owner).toEqual(userCreated)
+      expect(userCreated.pets).toBeInstanceOf(Array)
+      expect(userCreated.pets).toHaveLength(1)
+      userCreated.pets.forEach((pet) => {
+        expect(pet).toBeInstanceOf(Pet)
+        expect(pet.id).toBeDefined()
+        expect(pet.owner).toBeDefined()
+        expect(pet.owner).toEqual(userCreated)
+      })
     })
 
-    test('Should create one entity without relation', async () => {
+    test('Should create one entity of each type', async () => {
       await factory.create()
 
       const [totalUsers, totalPets] = await Promise.all([
@@ -124,9 +134,9 @@ describe(UserFactory, () => {
       expect(totalPets).toBe(0)
     })
 
-    test('Should create one entity of each type with relation', async () => {
+    test('Should create one entity of each type', async () => {
       await factory.create({
-        pet: new LazyInstanceAttribute((instance) => new SingleSubfactory(PetFactory, { owner: instance })),
+        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
       })
 
       const [totalUsers, totalPets] = await Promise.all([
@@ -159,28 +169,29 @@ describe(UserFactory, () => {
       await dataSource.destroy()
     })
 
-    test('Should create many new entities without relation', async () => {
+    test('Should create many new entities', async () => {
       const count = 2
-      const entitiesCreated = await factory.createMany(count)
+      const entitiesMaked = await factory.createMany(count)
 
-      expect(entitiesCreated).toHaveLength(count)
-      entitiesCreated.forEach((entity) => {
+      expect(entitiesMaked).toHaveLength(count)
+      entitiesMaked.forEach((entity) => {
         expect(entity.id).toBeDefined()
-        expect(entity.pet).toBeUndefined()
+        expect(entity.pets).toBeInstanceOf(Array)
+        expect(entity.pets).toHaveLength(0)
       })
     })
 
-    test('Should create many new entities with relation', async () => {
+    test('Should create many new entities with relations', async () => {
       const count = 2
-      const entitiesCreated = await factory.createMany(count, {
-        pet: new LazyInstanceAttribute((instance) => new SingleSubfactory(PetFactory, { owner: instance })),
+      const entitiesMaked = await factory.createMany(count, {
+        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
       })
 
-      expect(entitiesCreated).toHaveLength(count)
-      entitiesCreated.forEach((entity) => {
+      expect(entitiesMaked).toHaveLength(count)
+      entitiesMaked.forEach((entity) => {
         expect(entity.id).toBeDefined()
-        expect(entity.pet).toBeInstanceOf(Pet)
-        expect(entity.pet?.id).toBeDefined()
+        expect(entity.pets).toBeInstanceOf(Array)
+        expect(entity.pets).toHaveLength(1)
       })
     })
 
@@ -200,7 +211,7 @@ describe(UserFactory, () => {
     test('Should create many entities of each type with relations', async () => {
       const count = 2
       await factory.createMany(2, {
-        pet: new LazyInstanceAttribute((instance) => new SingleSubfactory(PetFactory, { owner: instance })),
+        pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
       })
 
       const [totalUsers, totalPets] = await Promise.all([

@@ -18,6 +18,7 @@ describe(UserFactory, () => {
       expect(userMaked.pet).toBeInstanceOf(Pet)
       expect(userMaked.pet.id).toBeUndefined()
       expect(userMaked.pet.name).toBeDefined()
+      expect(userMaked.pet.owner).toEqual(userMaked)
     })
 
     test('Should make two entities with different attributes', async () => {
@@ -66,6 +67,7 @@ describe(UserFactory, () => {
       expect(userCreated.pet).toBeInstanceOf(Pet)
       expect(userCreated.pet.id).toBeDefined()
       expect(userCreated.pet.name).toBeDefined()
+      expect(userCreated.pet.owner).toEqual(userCreated)
     })
 
     test('Should create one entity of each type', async () => {
