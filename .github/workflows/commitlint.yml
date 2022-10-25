@@ -13,7 +13,7 @@ jobs:
           version: latest
       - uses: actions/setup-node@v3
         with:
-          node-version: lts/gallium
+          node-version: lts/hydrogen
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - uses: wagoid/commitlint-github-action@v5
