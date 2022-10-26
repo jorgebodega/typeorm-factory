@@ -1,8 +1,7 @@
 {
-  "extends": "@tsconfig/node16",
+  "extends": "@tsconfig/node18-strictest",
   "compilerOptions": {
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": ["es2022"]
+    "experimentalDecorators": true
   }
 }

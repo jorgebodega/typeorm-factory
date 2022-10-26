@@ -14,7 +14,7 @@ jobs:
           version: latest
       - uses: actions/setup-node@v3
         with:
-          node-version: lts/gallium
+          node-version: lts/hydrogen
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm format:ci
@@ -27,7 +27,7 @@ jobs:
           version: latest
       - uses: actions/setup-node@v3
         with:
-          node-version: lts/gallium
+          node-version: lts/hydrogen
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint:ci
@@ -40,10 +40,16 @@ jobs:
           version: latest
       - uses: actions/setup-node@v3
         with:
-          node-version: lts/gallium
+          node-version: ${{ matrix.version }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
+    strategy:
+        matrix:
+          version:
+            - lts/fermium
+            - lts/gallium
+            - lts/hydrogen
   test:
     runs-on: ubuntu-latest
     steps:
@@ -53,7 +59,13 @@ jobs:
           version: latest
       - uses: actions/setup-node@v3
         with:
-          node-version: lts/gallium
+          node-version: ${{ matrix.version }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm test:ci
+    strategy:
+        matrix:
+          version:
+            - lts/fermium
+            - lts/gallium
+            - lts/hydrogen
