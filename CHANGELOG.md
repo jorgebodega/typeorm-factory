@@ -1,3 +1,10 @@
+# [1.3.0-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v1.2.1-next.1...v1.3.0-next.1) (2022-11-01)
+
+
+### Features
+
+* support for node 18 ([#53](https://github.com/jorgebodega/typeorm-factory/issues/53)) ([3a7c7f2](https://github.com/jorgebodega/typeorm-factory/commit/3a7c7f2a2723cedadbe77c722fdaa5eae0096929))
+
 ## [1.2.1-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v1.2.0...v1.2.1-next.1) (2022-10-15)
 
 
