@@ -2,10 +2,8 @@
 
 This example shows how to create two entities with a 1-to-1 relationship. The `User` entity has a `Profile` entity, which is related to the `User` entity.
 
-The important part of this example is how both factories handle the relationship.
-
 ```typescript
-// src/factories/UserFactory.ts
+// factories/UserFactory.ts
 export class UserFactory extends Factory<User> {
   ...
   protected attrs(): FactorizedAttrs<User> {
@@ -16,7 +14,7 @@ export class UserFactory extends Factory<User> {
   }
 }
 
-// src/factories/PetFactory.ts
+// factories/PetFactory.ts
 export class PetFactory extends Factory<Pet> {
   ...
   protected attrs(): FactorizedAttrs<Pet> {
