@@ -1,0 +1,30 @@
+## Two entities with a 1-to-1 nullable relationship
+
+This example shows how to create two entities with a 1-to-1 relationship, but one the of sides could be nullable. The `User` entity has a `Pet` entity, which is related to the `User` entity.
+
+```typescript
+// factories/UserFactory.ts
+export class UserFactory extends Factory<User> {
+  ...
+  protected attrs(): FactorizedAttrs<User> {
+    return {
+      ...
+      pet: new LazyInstanceAttribute((instance) => new SingleSubfactory(PetFactory, { owner: instance })), // or
+      pet: undefined,
+    }
+  }
+}
+
+// factories/PetFactory.ts
+export class PetFactory extends Factory<Pet> {
+  ...
+  protected attrs(): FactorizedAttrs<Pet> {
+    return {
+      ...
+      owner: new EagerInstanceAttribute((instance) => new SingleSubfactory(UserFactory, { pet: instance })),
+    }
+  }
+}
+```
+
+The `Pet` entity is the one that has the relation column, so it cannot be created **before** the `User` entity. That's why the `UserFactory` has a `LazyInstanceAttribute` for the `pet` attribute, which will create the `Pet` entity **after** the `User` entity is created. Also, the `pet` attribute could be undefined to represent that `User` has no relation. Some more examples could be found on both test files.
