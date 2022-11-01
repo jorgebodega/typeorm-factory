@@ -2,12 +2,12 @@
   "author": "Jorge Bodega <jorge.bodega.f@gmail.com> (https://github.com/jorgebodega)",
   "description": "🌱 A delightful way to use factories in your code.",
   "dependencies": {
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "devDependencies": {
     "@faker-js/faker": "7.6.0",
     "@tsconfig/node18-strictest": "1.0.0",
-    "@types/jest": "29.2.0",
+    "@types/jest": "29.2.1",
     "@types/node": "18.11.8",
     "@typescript-eslint/eslint-plugin": "5.41.0",
     "@typescript-eslint/parser": "5.41.0",
