@@ -30,6 +30,13 @@
     - [Function](#function)
     - [InstanceAttribute](#instanceattribute)
     - [Subfactory](#subfactory)
+- [Examples](#examples)
+  - [Single entity](examples/single-entity/README.md)
+  - [1-to-1 related](examples/1-to-1-related/README.md)
+  - [1-to-1 nullable related](examples/1-to-1-nullable-related/README.md)
+  - [1-to-1 chained related](examples/1-to-1-chained-related/README.md)
+  - [1-to-N related](examples/1-to-N-related/README.md)
+  - [N-to-M related](examples/N-to-M-related/README.md)
 
 # Installation
 
@@ -250,3 +257,15 @@ Subfactory just execute the same kind of operation (`make` or `create`) over the
 
 - `SingleSubfactory`: Execute `make` or `create` to return a single element.
 - `CollectionSubfactory`: Execute `makeMany` or `createMany` to return an array of elements.
+
+
+# Examples
+
+Some basic examples of how to use the library could be found on the `examples`  folder.
+
+- [Single entity](examples/single-entity/README.md)
+- [1-to-1 related](examples/1-to-1-related/README.md)
+- [1-to-1 nullable related](examples/1-to-1-nullable-related/README.md)
+- [1-to-1 chained related](examples/1-to-1-chained-related/README.md)
+- [1-to-N related](examples/1-to-N-related/README.md)
+- [N-to-M related](examples/N-to-M-related/README.md)
