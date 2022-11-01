@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/jorgebodega/typeorm-factory/compare/v1.2.0...v1.3.0) (2022-11-01)
+
+
+### Bug Fixes
+
+* types should extends object ([d67e630](https://github.com/jorgebodega/typeorm-factory/commit/d67e6306f347add50f67d762ad985364dc375aec))
+
+
+### Features
+
+* support for node 18 ([#53](https://github.com/jorgebodega/typeorm-factory/issues/53)) ([1dd44ec](https://github.com/jorgebodega/typeorm-factory/commit/1dd44ecdf7873b9acdcf05ce74fb9d2be445903c))
+
 # [1.3.0-next.2](https://github.com/jorgebodega/typeorm-factory/compare/v1.3.0-next.1...v1.3.0-next.2) (2022-11-01)
 
 # [1.3.0-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v1.2.1-next.1...v1.3.0-next.1) (2022-11-01)
