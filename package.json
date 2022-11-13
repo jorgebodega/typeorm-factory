@@ -14,7 +14,7 @@
     "eslint": "8.27.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
-    "jest": "29.2.2",
+    "jest": "29.3.1",
     "prettier": "2.7.1",
     "rimraf": "3.0.2",
     "sqlite3": "5.1.2",
@@ -35,7 +35,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "name": "@jorgebodega/typeorm-factory",
-  "packageManager": "pnpm@7.14.2",
+  "packageManager": "pnpm@7.15.0",
   "peerDependencies": {
     "typeorm": "^0.3.0"
   },
