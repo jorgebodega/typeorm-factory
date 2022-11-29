@@ -35,7 +35,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "name": "@jorgebodega/typeorm-factory",
-  "packageManager": "pnpm@7.17.0",
+  "packageManager": "pnpm@7.17.1",
   "peerDependencies": {
     "typeorm": "^0.3.0"
   },
