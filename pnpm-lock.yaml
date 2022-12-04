@@ -17,7 +17,7 @@ specifiers:
   ts-jest: 29.0.3
   ts-node: 10.9.1
   tslib: 2.4.1
-  typeorm: 0.3.10
+  typeorm: 0.3.11
   typescript: 4.9.3
 
 dependencies:
@@ -39,7 +39,7 @@ devDependencies:
   sqlite3: 5.1.2
   ts-jest: 29.0.3_4f6uxrzmuwipl5rr3bcogf6k74
   ts-node: 10.9.1_eoe7put6ewfbqpy6gs36tihw6y
-  typeorm: 0.3.10_pmxns7ckow5hp64uzurbpl2oxu
+  typeorm: 0.3.11_pmxns7ckow5hp64uzurbpl2oxu
   typescript: 4.9.3
 
 packages:
@@ -4094,14 +4094,14 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /typeorm/0.3.10_pmxns7ckow5hp64uzurbpl2oxu:
-    resolution: {integrity: sha512-VMKiM84EpJQ+Mz9xDIPqnfplWhyUy1d8ccaKdMY9obifxJOTFnv8GYVyPsGwG8Lk7Nb8MlttHyHWENGAhBA3WA==}
+  /typeorm/0.3.11_pmxns7ckow5hp64uzurbpl2oxu:
+    resolution: {integrity: sha512-pzdOyWbVuz/z8Ww6gqvBW4nylsM0KLdUCDExr2gR20/x1khGSVxQkjNV/3YqliG90jrWzrknYbYscpk8yxFJVg==}
     engines: {node: '>= 12.9.0'}
     hasBin: true
     peerDependencies:
       '@google-cloud/spanner': ^5.18.0
       '@sap/hana-client': ^2.12.25
-      better-sqlite3: ^7.1.2
+      better-sqlite3: ^7.1.2 || ^8.0.0
       hdb-pool: ^0.1.6
       ioredis: ^5.0.4
       mongodb: ^3.6.0
