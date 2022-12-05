@@ -268,4 +268,4 @@ Some basic examples of how to use the library could be found on the `examples`  
 - [1-to-1 nullable related](examples/1-to-1-nullable-related/README.md)
 - [1-to-1 chained related](examples/1-to-1-chained-related/README.md)
 - [1-to-N related](examples/1-to-N-related/README.md)
-- [N-to-M related](examples/N-to-M-related/README.md)
+- [N-to-M related](examples/N-to-M-related%20/README.md)
