@@ -1,6 +1,6 @@
 ## Two entities with a 1-to-1 relationship
 
-This example shows how to create two entities with a 1-to-1 relationship. The `User` entity has a `Profile` entity, which is related to the `User` entity.
+This example shows how to create two entities with a 1-to-1 relationship. The `User` entity has a `Pet` entity, which is related to the `User` entity.
 
 ```typescript
 // factories/UserFactory.ts
