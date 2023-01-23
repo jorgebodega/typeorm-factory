@@ -12,7 +12,7 @@ specifiers:
   eslint-plugin-import: 2.27.5
   jest: 29.3.1
   prettier: 2.8.3
-  rimraf: 4.0.7
+  rimraf: 4.1.1
   sqlite3: 5.1.4
   ts-jest: 29.0.5
   ts-node: 10.9.1
@@ -35,7 +35,7 @@ devDependencies:
   eslint-plugin-import: 2.27.5_2l6piu6guil2f63lj3qmhzbnn4
   jest: 29.3.1_zfha7dvnw4nti6zkbsmhmn6xo4
   prettier: 2.8.3
-  rimraf: 4.0.7
+  rimraf: 4.1.1
   sqlite3: 5.1.4
   ts-jest: 29.0.5_p6ekqnroyms5nhqbfxosryz7rm
   ts-node: 10.9.1_awa2wsr5thmg3i7jqycphctjfq
@@ -3693,8 +3693,8 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rimraf/4.0.7:
-    resolution: {integrity: sha512-CUEDDrZvc0swDgVdXGiv3FcYYQMpJxjvSGt85Amj6yU+MCVWurrLCeLiJDdJPHCzNJnwuebBEdcO//eP11Xa7w==}
+  /rimraf/4.1.1:
+    resolution: {integrity: sha512-Z4Y81w8atcvaJuJuBB88VpADRH66okZAuEm+Jtaufa+s7rZmIz+Hik2G53kGaNytE7lsfXyWktTmfVz0H9xuDg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
