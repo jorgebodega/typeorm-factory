@@ -12,7 +12,7 @@ export abstract class Factory<T extends object> {
    * Make a new entity without persisting it
    */
   async make(overrideParams: Partial<FactorizedAttrs<T>> = {}): Promise<T> {
-    const attrs = { ...this.attrs(), ...overrideParams }
+    const attrs: FactorizedAttrs<T> = { ...this.attrs(), ...overrideParams }
 
     const entity = await this.makeEntity(attrs, false)
 
@@ -37,7 +37,7 @@ export abstract class Factory<T extends object> {
    * Create a new entity and persist it
    */
   async create(overrideParams: Partial<FactorizedAttrs<T>> = {}, saveOptions?: SaveOptions): Promise<T> {
-    const attrs = { ...this.attrs(), ...overrideParams }
+    const attrs: FactorizedAttrs<T> = { ...this.attrs(), ...overrideParams }
     const preloadedAttrs = Object.entries(attrs).filter(([, value]) => !(value instanceof LazyInstanceAttribute))
 
     const entity = await this.makeEntity(Object.fromEntries(preloadedAttrs) as FactorizedAttrs<T>, true)
@@ -99,9 +99,11 @@ export abstract class Factory<T extends object> {
     )
   }
 
-  private static resolveValue(value: unknown, shouldPersist: boolean) {
+  private static async resolveValue(value: unknown, shouldPersist: boolean): Promise<unknown> {
     if (value instanceof BaseSubfactory) {
       return shouldPersist ? value.create() : value.make()
+    } else if (value instanceof Array) {
+      return await Promise.all(value.map((val: unknown) => Factory.resolveValue(val, shouldPersist)))
     } else if (value instanceof Function) {
       return value()
     } else {

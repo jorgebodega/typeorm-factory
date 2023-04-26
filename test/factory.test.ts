@@ -77,7 +77,21 @@ describe(Factory, () => {
 
         expect(userMaked.pets).toBeInstanceOf(Array)
         expect(userMaked.pets).toHaveLength(1)
-        userMaked.pets.forEach(async (pet) => {
+        userMaked.pets.forEach((pet) => {
+          expect(pet.id).toBeUndefined()
+          expect(pet.owner).toBeInstanceOf(User)
+          expect(pet.owner.id).toBeUndefined()
+        })
+      })
+
+      test('Should make a new entity with multiple subfactories in an array', async () => {
+        const userMaked = await factory.make({
+          pets: new LazyInstanceAttribute((instance) => [new SingleSubfactory(PetFactory, { owner: instance })]),
+        })
+
+        expect(userMaked.pets).toBeInstanceOf(Array)
+        expect(userMaked.pets).toHaveLength(1)
+        userMaked.pets.forEach((pet) => {
           expect(pet.id).toBeUndefined()
           expect(pet.owner).toBeInstanceOf(User)
           expect(pet.owner.id).toBeUndefined()
@@ -93,7 +107,7 @@ describe(Factory, () => {
 
         expect(userMaked.pets).toBeInstanceOf(Array)
         expect(userMaked.pets).toHaveLength(1)
-        userMaked.pets.forEach(async (pet) => {
+        userMaked.pets.forEach((pet) => {
           expect(pet.id).toBeUndefined()
           expect(pet.owner).toBeInstanceOf(User)
           expect(pet.owner.id).toBeUndefined()
@@ -235,7 +249,22 @@ describe(Factory, () => {
 
         expect(userCreated.pets).toBeInstanceOf(Array)
         expect(userCreated.pets).toHaveLength(1)
-        userCreated.pets.forEach(async (pet) => {
+        userCreated.pets.forEach((pet) => {
+          expect(pet.id).toBeDefined()
+          expect(pet.owner).toBeInstanceOf(User)
+          expect(pet.owner.id).toBeDefined()
+          expect(pet.owner.id).toBe(userCreated.id)
+        })
+      })
+
+      test('Should make a new entity with multiple subfactories in an array', async () => {
+        const userCreated = await factory.create({
+          pets: new LazyInstanceAttribute((instance) => [new SingleSubfactory(PetFactory, { owner: instance })]),
+        })
+
+        expect(userCreated.pets).toBeInstanceOf(Array)
+        expect(userCreated.pets).toHaveLength(1)
+        userCreated.pets.forEach((pet) => {
           expect(pet.id).toBeDefined()
           expect(pet.owner).toBeInstanceOf(User)
           expect(pet.owner.id).toBeDefined()
