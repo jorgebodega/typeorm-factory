@@ -258,6 +258,18 @@ Subfactory just execute the same kind of operation (`make` or `create`) over the
 - `SingleSubfactory`: Execute `make` or `create` to return a single element.
 - `CollectionSubfactory`: Execute `makeMany` or `createMany` to return an array of elements.
 
+A `CollectionSubfactory` is equivalent now to an array of `SingleSubfactory`, so this two statements produce the same result.
+
+```ts
+protected attrs: FactorizedAttrs<User> = {
+  pets: new CollectionSubfactory(PetFactory, 2, ...)
+  // or
+  pets: [
+    new SingleSubfactory(PetFactory, ...),
+    new SingleSubfactory(PetFactory, ...),
+  ],
+}
+```
 
 # Examples
 
