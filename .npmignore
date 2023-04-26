@@ -1,7 +1,7 @@
 .commitlintrc
 .eslintrc.js
 .github
-.nvmrc
+.node-version
 .prettierrc
 .releaserc.json
 .sgcrc
