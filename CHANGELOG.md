@@ -1,3 +1,10 @@
+# [1.5.0-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v1.4.0...v1.5.0-next.1) (2023-04-26)
+
+
+### Features
+
+* support for single subfactory array instead of collection ([8974cd4](https://github.com/jorgebodega/typeorm-factory/commit/8974cd47ebc4cf1bf02fa5c7d59b07f7ac04bc87))
+
 # [1.4.0](https://github.com/jorgebodega/typeorm-factory/compare/v1.3.0...v1.4.0) (2023-01-03)
 
 
