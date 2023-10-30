@@ -1,3 +1,22 @@
+# [2.0.0-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v1.5.0-next.1...v2.0.0-next.1) (2023-10-30)
+
+
+### chore
+
+* bump minimum version for node use ([7920e1d](https://github.com/jorgebodega/typeorm-factory/commit/7920e1d097a8c652fc832542956a40398182d5a8))
+
+
+### Features
+
+* update typescript ([263b408](https://github.com/jorgebodega/typeorm-factory/commit/263b4085a8c50aa30c65ace2653ed8c9e48d4910))
+* upgrade node version ([f990a50](https://github.com/jorgebodega/typeorm-factory/commit/f990a50feb98f83bb9161207f96b75f8529d6ed5))
+
+
+### BREAKING CHANGES
+
+* remove support for node 16
+* now Node 14 (lts) and 17 are out-of-life
+
 # [1.5.0-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v1.4.0...v1.5.0-next.1) (2023-04-26)
 
 
