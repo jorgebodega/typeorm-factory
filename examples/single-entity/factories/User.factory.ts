@@ -9,8 +9,8 @@ export class UserFactory extends Factory<User> {
 
   protected attrs(): FactorizedAttrs<User> {
     return {
-      name: faker.name.firstName(),
-      lastName: faker.name.lastName(),
+      name: faker.person.firstName(),
+      lastName: faker.person.lastName(),
     }
   }
 }

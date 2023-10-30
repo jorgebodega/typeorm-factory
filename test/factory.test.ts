@@ -1,9 +1,9 @@
 import { CollectionSubfactory, EagerInstanceAttribute, Factory, LazyInstanceAttribute, SingleSubfactory } from '../src'
-import { dataSource } from './fixtures/dataSource'
 import { Pet } from './fixtures/Pet.entity'
 import { PetFactory } from './fixtures/Pet.factory'
 import { User } from './fixtures/User.entity'
 import { UserFactory } from './fixtures/User.factory'
+import { dataSource } from './fixtures/dataSource'
 
 describe(Factory, () => {
   describe(Factory.prototype.make, () => {

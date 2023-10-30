@@ -2,9 +2,9 @@ import { faker } from '@faker-js/faker'
 import { LazyInstanceAttribute, SingleSubfactory } from '../../src'
 import { Factory } from '../../src/factory'
 import type { FactorizedAttrs } from '../../src/types'
-import { dataSource } from './dataSource'
 import { Pet } from './Pet.entity'
 import { UserFactory } from './User.factory'
+import { dataSource } from './dataSource'
 
 export class PetFactory extends Factory<Pet> {
   protected entity = Pet
