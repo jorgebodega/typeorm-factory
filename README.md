@@ -153,8 +153,8 @@ Attributes objects are superset from the original entity attributes.
 
 ```ts
 protected attrs: FactorizedAttrs<User> = {
-  name: faker.name.firstName(),
-  lastName: async () => faker.name.lastName(),
+  name: faker.person.firstName(),
+  lastName: async () => faker.person.lastName(),
   email: new InstanceAttribute((instance) =>
     [instance.name.toLowerCase(), instance.lastName.toLowerCase(), '@email.com'].join(''),
   ),
@@ -176,7 +176,7 @@ Nothing special, just a value with same type.
 ```ts
 protected attrs(): FactorizedAttrs<User> = {
   return {
-    name: faker.name.firstName(),
+    name: faker.person.firstName(),
   }
 }
 ```
@@ -188,7 +188,7 @@ Function that could be sync or async, and return a value of the same type.
 ```ts
 protected attrs: FactorizedAttrs<User> = {
   return {
-    lastName: async () => faker.name.lastName(),
+    lastName: async () => faker.person.lastName(),
   }
 }
 ```
