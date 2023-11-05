@@ -7,8 +7,8 @@
   "devDependencies": {
     "@faker-js/faker": "8.2.0",
     "@tsconfig/node18-strictest": "1.0.0",
-    "@types/jest": "29.5.6",
-    "@types/node": "20.8.9",
+    "@types/jest": "29.5.7",
+    "@types/node": "20.8.10",
     "@typescript-eslint/eslint-plugin": "6.9.1",
     "@typescript-eslint/parser": "6.9.1",
     "eslint": "8.52.0",
@@ -36,7 +36,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "name": "@jorgebodega/typeorm-factory",
-  "packageManager": "pnpm@8.10.0",
+  "packageManager": "pnpm@8.10.2",
   "peerDependencies": {
     "typeorm": "^0.3.0"
   },
