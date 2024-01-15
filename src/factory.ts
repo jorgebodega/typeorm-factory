@@ -43,7 +43,7 @@ export abstract class Factory<T extends object> {
     const entity = await this.makeEntity(Object.fromEntries(preloadedAttrs) as FactorizedAttrs<T>, true)
     await this.applyEagerInstanceAttributes(entity, attrs, true)
 
-    const em = this.dataSource.createEntityManager()
+    const em = this.dataSource.getRepository<T>(this.entity)
     const savedEntity = await em.save<T>(entity, saveOptions)
 
     await this.applyLazyInstanceAttributes(savedEntity, attrs, true)
