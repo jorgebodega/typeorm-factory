@@ -1,3 +1,10 @@
+# [2.0.0-next.2](https://github.com/jorgebodega/typeorm-factory/compare/v2.0.0-next.1...v2.0.0-next.2) (2024-02-28)
+
+
+### Features
+
+* allow overriding entity manager creation to allow end user managing external transactions ([#163](https://github.com/jorgebodega/typeorm-factory/issues/163)) ([a249ec2](https://github.com/jorgebodega/typeorm-factory/commit/a249ec22756180e2e4884932489748e07ea3cf68))
+
 # [2.0.0-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v1.5.0-next.1...v2.0.0-next.1) (2023-10-30)
 
 
