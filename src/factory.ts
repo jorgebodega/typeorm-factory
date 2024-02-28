@@ -43,7 +43,7 @@ export abstract class Factory<T extends object> {
     const entity = await this.makeEntity(Object.fromEntries(preloadedAttrs) as FactorizedAttrs<T>, true)
     await this.applyEagerInstanceAttributes(entity, attrs, true)
 
-    const em = this.dataSource.createEntityManager()
+    const em = this.getEntityManager()
     const savedEntity = await em.save<T>(entity, saveOptions)
 
     await this.applyLazyInstanceAttributes(savedEntity, attrs, true)
@@ -63,6 +63,10 @@ export abstract class Factory<T extends object> {
       list[index] = await this.create(overrideParams, saveOptions)
     }
     return list
+  }
+
+  protected getEntityManager() {
+    return this.dataSource.createEntityManager()
   }
 
   private async makeEntity(attrs: FactorizedAttrs<T>, shouldPersist: boolean) {
