@@ -1,3 +1,24 @@
+# [2.0.0](https://github.com/jorgebodega/typeorm-factory/compare/v1.4.0...v2.0.0) (2024-03-18)
+
+
+### chore
+
+* bump minimum version for node use ([7920e1d](https://github.com/jorgebodega/typeorm-factory/commit/7920e1d097a8c652fc832542956a40398182d5a8))
+
+
+### Features
+
+* allow overriding entity manager creation to allow end user managing external transactions ([#163](https://github.com/jorgebodega/typeorm-factory/issues/163)) ([a249ec2](https://github.com/jorgebodega/typeorm-factory/commit/a249ec22756180e2e4884932489748e07ea3cf68))
+* support for single subfactory array instead of collection ([8974cd4](https://github.com/jorgebodega/typeorm-factory/commit/8974cd47ebc4cf1bf02fa5c7d59b07f7ac04bc87))
+* update typescript ([263b408](https://github.com/jorgebodega/typeorm-factory/commit/263b4085a8c50aa30c65ace2653ed8c9e48d4910))
+* upgrade node version ([f990a50](https://github.com/jorgebodega/typeorm-factory/commit/f990a50feb98f83bb9161207f96b75f8529d6ed5))
+
+
+### BREAKING CHANGES
+
+* remove support for node 16
+* now Node 14 (lts) and 17 are out-of-life
+
 # [2.0.0-next.3](https://github.com/jorgebodega/typeorm-factory/compare/v2.0.0-next.2...v2.0.0-next.3) (2024-03-18)
 
 # [2.0.0-next.2](https://github.com/jorgebodega/typeorm-factory/compare/v2.0.0-next.1...v2.0.0-next.2) (2024-02-28)
