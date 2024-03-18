@@ -1,3 +1,5 @@
+# [2.0.0-next.3](https://github.com/jorgebodega/typeorm-factory/compare/v2.0.0-next.2...v2.0.0-next.3) (2024-03-18)
+
 # [2.0.0-next.2](https://github.com/jorgebodega/typeorm-factory/compare/v2.0.0-next.1...v2.0.0-next.2) (2024-02-28)
 
 
