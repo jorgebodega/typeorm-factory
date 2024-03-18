@@ -2,6 +2,7 @@
   "extends": [
     "config:base",
     "group:allNonMajor",
+    "schedule:monthly",
     ":assignAndReview(jorgebodega)",
     ":automergeDisabled",
     ":semanticCommits",
