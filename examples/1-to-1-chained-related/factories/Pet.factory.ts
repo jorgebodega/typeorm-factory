@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import {
 	EagerInstanceAttribute,
-	FactorizedAttrs,
+	type FactorizedAttrs,
 	Factory,
 	LazyInstanceAttribute,
 	SingleSubfactory,

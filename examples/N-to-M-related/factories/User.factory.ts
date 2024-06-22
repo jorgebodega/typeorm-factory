@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { FactorizedAttrs, Factory } from "../../../src";
+import { type FactorizedAttrs, Factory } from "../../../src";
 import { dataSource } from "../dataSource";
 import { User } from "../entities/User.entity";
 

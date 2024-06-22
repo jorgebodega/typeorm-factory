@@ -77,11 +77,12 @@ describe(Factory, () => {
 
 				expect(userMaked.pets).toBeInstanceOf(Array);
 				expect(userMaked.pets).toHaveLength(1);
-				userMaked.pets.forEach((pet) => {
+
+				for (const pet of userMaked.pets) {
 					expect(pet.id).toBeUndefined();
 					expect(pet.owner).toBeInstanceOf(User);
 					expect(pet.owner.id).toBeUndefined();
-				});
+				}
 			});
 
 			test("Should make a new entity with multiple subfactories in an array", async () => {
@@ -91,11 +92,11 @@ describe(Factory, () => {
 
 				expect(userMaked.pets).toBeInstanceOf(Array);
 				expect(userMaked.pets).toHaveLength(1);
-				userMaked.pets.forEach((pet) => {
-					expect(pet.id).toBeUndefined();
-					expect(pet.owner).toBeInstanceOf(User);
-					expect(pet.owner.id).toBeUndefined();
-				});
+				for (const user of userMaked.pets) {
+					expect(user.id).toBeUndefined();
+					expect(user.owner).toBeInstanceOf(User);
+					expect(user.owner.id).toBeUndefined();
+				}
 			});
 
 			test("Should make a new entity with multiple existing subfactories", async () => {
@@ -107,11 +108,12 @@ describe(Factory, () => {
 
 				expect(userMaked.pets).toBeInstanceOf(Array);
 				expect(userMaked.pets).toHaveLength(1);
-				userMaked.pets.forEach((pet) => {
+
+				for (const pet of userMaked.pets) {
 					expect(pet.id).toBeUndefined();
 					expect(pet.owner).toBeInstanceOf(User);
 					expect(pet.owner.id).toBeUndefined();
-				});
+				}
 			});
 
 			test("Should make two entities with different attributes", async () => {
@@ -160,9 +162,10 @@ describe(Factory, () => {
 			const entitiesMaked = await factory.makeMany(count);
 
 			expect(entitiesMaked).toHaveLength(count);
-			entitiesMaked.forEach((entity) => {
+
+			for (const entity of entitiesMaked) {
 				expect(entity.id).toBeUndefined();
-			});
+			}
 		});
 	});
 
@@ -249,12 +252,13 @@ describe(Factory, () => {
 
 				expect(userCreated.pets).toBeInstanceOf(Array);
 				expect(userCreated.pets).toHaveLength(1);
-				userCreated.pets.forEach((pet) => {
+
+				for (const pet of userCreated.pets) {
 					expect(pet.id).toBeDefined();
 					expect(pet.owner).toBeInstanceOf(User);
 					expect(pet.owner.id).toBeDefined();
 					expect(pet.owner.id).toBe(userCreated.id);
-				});
+				}
 			});
 
 			test("Should make a new entity with multiple subfactories in an array", async () => {
@@ -264,12 +268,13 @@ describe(Factory, () => {
 
 				expect(userCreated.pets).toBeInstanceOf(Array);
 				expect(userCreated.pets).toHaveLength(1);
-				userCreated.pets.forEach((pet) => {
+
+				for (const pet of userCreated.pets) {
 					expect(pet.id).toBeDefined();
 					expect(pet.owner).toBeInstanceOf(User);
 					expect(pet.owner.id).toBeDefined();
 					expect(pet.owner.id).toBe(userCreated.id);
-				});
+				}
 			});
 
 			test("Should create two entities with different attributes", async () => {
@@ -315,9 +320,9 @@ describe(Factory, () => {
 			const entitiesCreated = await factory.createMany(count);
 
 			expect(entitiesCreated).toHaveLength(count);
-			entitiesCreated.forEach((entity) => {
+			for (const entity of entitiesCreated) {
 				expect(entity.id).toBeDefined();
-			});
+			}
 		});
 	});
 });

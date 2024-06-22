@@ -38,7 +38,8 @@ describe(RefugeFactory, () => {
 			const entitiesMaked = await factory.makeMany(count);
 
 			expect(entitiesMaked).toHaveLength(count);
-			entitiesMaked.forEach((entity) => {
+
+			for (const entity of entitiesMaked) {
 				expect(entity.id).toBeUndefined();
 
 				expect(entity.pet).toBeInstanceOf(Pet);
@@ -46,7 +47,7 @@ describe(RefugeFactory, () => {
 
 				expect(entity.pet.owner).toBeInstanceOf(User);
 				expect(entity.pet.owner.id).toBeUndefined();
-			});
+			}
 		});
 	});
 
@@ -119,7 +120,7 @@ describe(RefugeFactory, () => {
 			const entitiesCreated = await factory.createMany(count);
 
 			expect(entitiesCreated).toHaveLength(count);
-			entitiesCreated.forEach((entity) => {
+			for (const entity of entitiesCreated) {
 				expect(entity.id).toBeDefined();
 
 				expect(entity.pet).toBeInstanceOf(Pet);
@@ -127,7 +128,7 @@ describe(RefugeFactory, () => {
 
 				expect(entity.pet.owner).toBeInstanceOf(User);
 				expect(entity.pet.owner.id).toBeDefined();
-			});
+			}
 		});
 	});
 });

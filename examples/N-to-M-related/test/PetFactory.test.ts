@@ -33,12 +33,13 @@ describe(PetFactory, () => {
 
 			expect(petMaked.owners).toBeInstanceOf(Array);
 			expect(petMaked.owners).toHaveLength(1);
-			petMaked.owners.forEach((owner) => {
+
+			for (const owner of petMaked.owners) {
 				expect(owner).toBeInstanceOf(User);
 				expect(owner.id).toBeUndefined();
 				expect(owner.pets).toBeInstanceOf(Array);
 				expect(owner.pets).toHaveLength(1);
-			});
+			}
 		});
 
 		test("Should make two entities with different attributes", async () => {
@@ -55,11 +56,12 @@ describe(PetFactory, () => {
 			const entitiesMaked = await factory.makeMany(count);
 
 			expect(entitiesMaked).toHaveLength(count);
-			entitiesMaked.forEach((entity) => {
+
+			for (const entity of entitiesMaked) {
 				expect(entity.id).toBeUndefined();
 				expect(entity.owners).toBeInstanceOf(Array);
 				expect(entity.owners).toHaveLength(0);
-			});
+			}
 		});
 
 		test("Should make many new entities with relations", async () => {
@@ -71,11 +73,12 @@ describe(PetFactory, () => {
 			});
 
 			expect(entitiesMaked).toHaveLength(count);
-			entitiesMaked.forEach((entity) => {
+
+			for (const entity of entitiesMaked) {
 				expect(entity.id).toBeUndefined();
 				expect(entity.owners).toBeInstanceOf(Array);
 				expect(entity.owners).toHaveLength(1);
-			});
+			}
 		});
 	});
 
@@ -116,12 +119,13 @@ describe(PetFactory, () => {
 
 			expect(petCreated.owners).toBeInstanceOf(Array);
 			expect(petCreated.owners).toHaveLength(1);
-			petCreated.owners.forEach((owner) => {
+
+			for (const owner of petCreated.owners) {
 				expect(owner).toBeInstanceOf(User);
 				expect(owner.id).toBeDefined();
 				expect(owner.pets).toBeInstanceOf(Array);
 				expect(owner.pets).toHaveLength(1);
-			});
+			}
 		});
 
 		test("Should create one entity", async () => {
@@ -178,11 +182,12 @@ describe(PetFactory, () => {
 			const entitiesMaked = await factory.createMany(count);
 
 			expect(entitiesMaked).toHaveLength(count);
-			entitiesMaked.forEach((entity) => {
+
+			for (const entity of entitiesMaked) {
 				expect(entity.id).toBeDefined();
 				expect(entity.owners).toBeInstanceOf(Array);
 				expect(entity.owners).toHaveLength(0);
-			});
+			}
 		});
 
 		test("Should create many new entities with relations", async () => {
@@ -194,11 +199,12 @@ describe(PetFactory, () => {
 			});
 
 			expect(entitiesMaked).toHaveLength(count);
-			entitiesMaked.forEach((entity) => {
+
+			for (const entity of entitiesMaked) {
 				expect(entity.id).toBeDefined();
 				expect(entity.owners).toBeInstanceOf(Array);
 				expect(entity.owners).toHaveLength(1);
-			});
+			}
 		});
 
 		test("Should create many entities without relation", async () => {

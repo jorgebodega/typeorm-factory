@@ -106,12 +106,13 @@ export abstract class Factory<T extends object> {
 	private static async resolveValue(value: unknown, shouldPersist: boolean): Promise<unknown> {
 		if (value instanceof BaseSubfactory) {
 			return shouldPersist ? value.create() : value.make();
-		} else if (value instanceof Array) {
-			return await Promise.all(value.map((val: unknown) => Factory.resolveValue(val, shouldPersist)));
-		} else if (value instanceof Function) {
-			return value();
-		} else {
-			return value;
 		}
+		if (Array.isArray(value)) {
+			return await Promise.all(value.map((val: unknown) => Factory.resolveValue(val, shouldPersist)));
+		}
+		if (value instanceof Function) {
+			return value();
+		}
+		return value;
 	}
 }

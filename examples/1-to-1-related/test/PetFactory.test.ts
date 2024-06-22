@@ -33,11 +33,12 @@ describe(PetFactory, () => {
 			const entitiesMaked = await factory.makeMany(count);
 
 			expect(entitiesMaked).toHaveLength(count);
-			entitiesMaked.forEach((entity) => {
+
+			for (const entity of entitiesMaked) {
 				expect(entity.id).toBeUndefined();
 				expect(entity.owner).toBeInstanceOf(User);
 				expect(entity.owner.id).toBeUndefined();
-			});
+			}
 		});
 	});
 
@@ -92,11 +93,12 @@ describe(PetFactory, () => {
 			const entitiesCreated = await factory.createMany(count);
 
 			expect(entitiesCreated).toHaveLength(count);
-			entitiesCreated.forEach((entity) => {
+
+			for (const entity of entitiesCreated) {
 				expect(entity.id).toBeDefined();
 				expect(entity.owner).toBeInstanceOf(User);
 				expect(entity.owner.id).toBeDefined();
-			});
+			}
 		});
 	});
 });

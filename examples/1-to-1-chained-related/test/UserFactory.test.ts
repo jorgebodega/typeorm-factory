@@ -40,7 +40,8 @@ describe(UserFactory, () => {
 			const entitiesMaked = await factory.makeMany(count);
 
 			expect(entitiesMaked).toHaveLength(count);
-			entitiesMaked.forEach((entity) => {
+
+			for (const entity of entitiesMaked) {
 				expect(entity.id).toBeUndefined();
 
 				expect(entity.pet).toBeInstanceOf(Pet);
@@ -48,7 +49,7 @@ describe(UserFactory, () => {
 
 				expect(entity.pet.refuge).toBeInstanceOf(Refuge);
 				expect(entity.pet.refuge.id).toBeUndefined();
-			});
+			}
 		});
 	});
 
@@ -123,7 +124,8 @@ describe(UserFactory, () => {
 			const entitiesCreated = await factory.createMany(count);
 
 			expect(entitiesCreated).toHaveLength(count);
-			entitiesCreated.forEach((entity) => {
+
+			for (const entity of entitiesCreated) {
 				expect(entity.id).toBeDefined();
 
 				expect(entity.pet).toBeInstanceOf(Pet);
@@ -132,7 +134,7 @@ describe(UserFactory, () => {
 
 				expect(entity.pet.refuge).toBeInstanceOf(Refuge);
 				expect(entity.pet.refuge.id).toBeDefined();
-			});
+			}
 		});
 
 		test("Should create many entities of each type", async () => {

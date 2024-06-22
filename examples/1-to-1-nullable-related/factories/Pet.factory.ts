@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { EagerInstanceAttribute, FactorizedAttrs, Factory, SingleSubfactory } from "../../../src";
+import { EagerInstanceAttribute, type FactorizedAttrs, Factory, SingleSubfactory } from "../../../src";
 import { dataSource } from "../dataSource";
 import { Pet } from "../entities/Pet.entity";
 import { UserFactory } from "./User.factory";
