@@ -1,11 +1,10 @@
 .commitlintrc
-.eslintrc.js
 .github
 .node-version
-.prettierrc
 .releaserc.json
 .sgcrc
 .vscode
+biome.json
 examples
 jest.config.ts
 src

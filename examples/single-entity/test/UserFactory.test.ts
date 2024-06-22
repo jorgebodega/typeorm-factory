@@ -1,91 +1,93 @@
-import { dataSource } from '../dataSource'
-import { User } from '../entities/User.entity'
-import { UserFactory } from '../factories/User.factory'
+import { dataSource } from "../dataSource";
+import { User } from "../entities/User.entity";
+import { UserFactory } from "../factories/User.factory";
 
 describe(UserFactory, () => {
-  const factory = new UserFactory()
+	const factory = new UserFactory();
 
-  describe(UserFactory.prototype.make, () => {
-    test('Should make a new entity', async () => {
-      const userMaked = await factory.make()
+	describe(UserFactory.prototype.make, () => {
+		test("Should make a new entity", async () => {
+			const userMaked = await factory.make();
 
-      expect(userMaked).toBeInstanceOf(User)
-      expect(userMaked.id).toBeUndefined()
-      expect(userMaked.name).toBeDefined()
-      expect(userMaked.lastName).toBeDefined()
-    })
+			expect(userMaked).toBeInstanceOf(User);
+			expect(userMaked.id).toBeUndefined();
+			expect(userMaked.name).toBeDefined();
+			expect(userMaked.lastName).toBeDefined();
+		});
 
-    test('Should make two entities with different attributes', async () => {
-      const userMaked1 = await factory.make()
-      const userMaked2 = await factory.make()
+		test("Should make two entities with different attributes", async () => {
+			const userMaked1 = await factory.make();
+			const userMaked2 = await factory.make();
 
-      expect(userMaked1).not.toStrictEqual(userMaked2)
-    })
-  })
+			expect(userMaked1).not.toStrictEqual(userMaked2);
+		});
+	});
 
-  describe(UserFactory.prototype.makeMany, () => {
-    test('Should make many new entities', async () => {
-      const count = 2
-      const entitiesMaked = await factory.makeMany(count)
+	describe(UserFactory.prototype.makeMany, () => {
+		test("Should make many new entities", async () => {
+			const count = 2;
+			const entitiesMaked = await factory.makeMany(count);
 
-      expect(entitiesMaked).toHaveLength(count)
-      entitiesMaked.forEach((entity) => {
-        expect(entity.id).toBeUndefined()
-      })
-    })
-  })
+			expect(entitiesMaked).toHaveLength(count);
 
-  describe(UserFactory.prototype.create, () => {
-    beforeAll(async () => {
-      await dataSource.initialize()
-    })
+			for (const entity of entitiesMaked) {
+				expect(entity.id).toBeUndefined();
+			}
+		});
+	});
 
-    beforeEach(async () => {
-      await dataSource.synchronize(true)
-    })
+	describe(UserFactory.prototype.create, () => {
+		beforeAll(async () => {
+			await dataSource.initialize();
+		});
 
-    afterAll(async () => {
-      await dataSource.destroy()
-    })
+		beforeEach(async () => {
+			await dataSource.synchronize(true);
+		});
 
-    test('Should create a new entity', async () => {
-      const userCreated = await factory.create()
+		afterAll(async () => {
+			await dataSource.destroy();
+		});
 
-      expect(userCreated).toBeInstanceOf(User)
-      expect(userCreated.id).toBeDefined()
-      expect(userCreated.name).toBeDefined()
-      expect(userCreated.lastName).toBeDefined()
-    })
+		test("Should create a new entity", async () => {
+			const userCreated = await factory.create();
 
-    test('Should create two entities with different attributes', async () => {
-      const userCreated1 = await factory.create()
-      const userCreated2 = await factory.create()
+			expect(userCreated).toBeInstanceOf(User);
+			expect(userCreated.id).toBeDefined();
+			expect(userCreated.name).toBeDefined();
+			expect(userCreated.lastName).toBeDefined();
+		});
 
-      expect(userCreated1).not.toStrictEqual(userCreated2)
-    })
-  })
+		test("Should create two entities with different attributes", async () => {
+			const userCreated1 = await factory.create();
+			const userCreated2 = await factory.create();
 
-  describe(UserFactory.prototype.createMany, () => {
-    beforeAll(async () => {
-      await dataSource.initialize()
-    })
+			expect(userCreated1).not.toStrictEqual(userCreated2);
+		});
+	});
 
-    beforeEach(async () => {
-      await dataSource.synchronize(true)
-    })
+	describe(UserFactory.prototype.createMany, () => {
+		beforeAll(async () => {
+			await dataSource.initialize();
+		});
 
-    afterAll(async () => {
-      await dataSource.destroy()
-    })
+		beforeEach(async () => {
+			await dataSource.synchronize(true);
+		});
 
-    test('Should create many new entities', async () => {
-      const count = 2
-      const entitiesCreated = await factory.createMany(count)
+		afterAll(async () => {
+			await dataSource.destroy();
+		});
 
-      expect(entitiesCreated).toHaveLength(count)
-      entitiesCreated.forEach((entity) => {
-        expect(entity.id).toBeDefined()
-      })
-    })
-  })
-})
+		test("Should create many new entities", async () => {
+			const count = 2;
+			const entitiesCreated = await factory.createMany(count);
+
+			expect(entitiesCreated).toHaveLength(count);
+
+			for (const entity of entitiesCreated) {
+				expect(entity.id).toBeDefined();
+			}
+		});
+	});
+});

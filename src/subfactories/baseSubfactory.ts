@@ -1,17 +1,17 @@
-import { Factory } from '../factory'
-import type { Constructable, FactorizedAttrs } from '../types'
+import { Factory } from "../factory";
+import type { Constructable, FactorizedAttrs } from "../types";
 
 export abstract class BaseSubfactory<T extends object> {
-  protected factoryInstance: Factory<T>
+	protected factoryInstance: Factory<T>;
 
-  constructor(
-    factoryOrFactoryInstance: Constructable<Factory<T>> | Factory<T>,
-    protected values?: Partial<FactorizedAttrs<T>>,
-  ) {
-    this.factoryInstance =
-      factoryOrFactoryInstance instanceof Factory ? factoryOrFactoryInstance : new factoryOrFactoryInstance()
-  }
+	constructor(
+		factoryOrFactoryInstance: Constructable<Factory<T>> | Factory<T>,
+		protected values?: Partial<FactorizedAttrs<T>>,
+	) {
+		this.factoryInstance =
+			factoryOrFactoryInstance instanceof Factory ? factoryOrFactoryInstance : new factoryOrFactoryInstance();
+	}
 
-  abstract create(): Promise<T> | Promise<T[]>
-  abstract make(): Promise<T> | Promise<T[]>
+	abstract create(): Promise<T> | Promise<T[]>;
+	abstract make(): Promise<T> | Promise<T[]>;
 }
