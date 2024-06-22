@@ -1,15 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne } from 'typeorm'
-import { User } from './User.entity'
+import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne } from "typeorm";
+import { User } from "./User.entity";
 
 @Entity()
 export class Pet {
-  @PrimaryGeneratedColumn('increment')
-  id!: string
+	@PrimaryGeneratedColumn("increment")
+	id!: string;
 
-  @Column()
-  name!: string
+	@Column()
+	name!: string;
 
-  @OneToOne(() => User, (user) => user.pet, { nullable: false })
-  @JoinColumn({ name: 'owner_id' })
-  owner!: User
+	@OneToOne(
+		() => User,
+		(user) => user.pet,
+		{ nullable: false },
+	)
+	@JoinColumn({ name: "owner_id" })
+	owner!: User;
 }
