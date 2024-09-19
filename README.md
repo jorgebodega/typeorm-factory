@@ -122,6 +122,15 @@ new UserFactory().make({ email: 'other@mail.com' })
 new UserFactory().makeMany(10, { email: 'other@mail.com' })
 ```
 
+When making many entities, the details on each instance can be fine-tuned using a callback or an array syntax:
+```ts
+// each second user will be created with disabled flag set
+new UserFactory().makeMany(10, [{ }, { disabled: true }])
+
+// each second user will be created with disabled flag set, using a function syntax. The result will be similar to the above.
+new UserFactory().makeMany(10, (index) => ({ disabled: Boolean(index % 2) }))
+```
+
 ## `create` & `createMany`
 
 the create and createMany method is similar to the make and makeMany method, but at the end the created entity instance gets persisted in the database using TypeORM entity manager.
@@ -145,6 +154,8 @@ new UserFactory().createMany(10, { email: 'other@mail.com' })
 // using save options
 new UserFactory().create({ email: 'other@mail.com' }, { listeners: false })
 new UserFactory().createMany(10, { email: 'other@mail.com' }, { listeners: false })
+new UserFactory().createMany(10, [{}, { disabled: true }])
+new UserFactory().createMany(10, (index) => ({ disabled: Boolean(index % 2) }))
 ```
 
 ## `attrs`
