@@ -21,12 +21,7 @@
 	"engines": {
 		"node": ">=18 <19 || >=20"
 	},
-	"keywords": [
-		"typeorm",
-		"factory",
-		"entity",
-		"orm"
-	],
+	"keywords": ["typeorm", "factory", "entity", "orm"],
 	"license": "MIT",
 	"main": "dist/index.js",
 	"name": "@jorgebodega/typeorm-factory",
