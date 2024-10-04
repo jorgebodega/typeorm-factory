@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/jorgebodega/typeorm-factory/compare/v2.0.0...v2.1.0) (2024-10-04)
+
+
+### Features
+
+* add biome instead of prettier and eslint ([#178](https://github.com/jorgebodega/typeorm-factory/issues/178)) ([c8f64df](https://github.com/jorgebodega/typeorm-factory/commit/c8f64df7e1f69ee8c0973baf7fe3acfea4403bcf))
+
 # [2.1.0-next.3](https://github.com/jorgebodega/typeorm-factory/compare/v2.1.0-next.2...v2.1.0-next.3) (2024-10-04)
 
 # [2.1.0-next.2](https://github.com/jorgebodega/typeorm-factory/compare/v2.1.0-next.1...v2.1.0-next.2) (2024-09-25)
