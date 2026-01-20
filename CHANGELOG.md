@@ -1,3 +1,16 @@
+## [3.0.0-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v2.1.0...v3.0.0-next.1) (2026-01-20)
+
+### ⚠ BREAKING CHANGES
+
+* update node requirements (#194)
+
+### Features
+
+* update node requirements ([#194](https://github.com/jorgebodega/typeorm-factory/issues/194)) ([221735f](https://github.com/jorgebodega/typeorm-factory/commit/221735fe4a5e92de9dfe266e01aae710ab6accef))
+* upgrade biome ([#195](https://github.com/jorgebodega/typeorm-factory/issues/195)) ([49d987e](https://github.com/jorgebodega/typeorm-factory/commit/49d987ea1f4c60281dd75383269991e46343d2f2))
+* upgrade pnpm action ([#201](https://github.com/jorgebodega/typeorm-factory/issues/201)) ([bd57cf9](https://github.com/jorgebodega/typeorm-factory/commit/bd57cf9eb493baf5033739b39348ea9a095f713b))
+* upgrade renovate.json ([#197](https://github.com/jorgebodega/typeorm-factory/issues/197)) ([6118bbe](https://github.com/jorgebodega/typeorm-factory/commit/6118bbec73275e7f0fa18c6acb4cec0d4f5d0073))
+
 # [2.1.0](https://github.com/jorgebodega/typeorm-factory/compare/v2.0.0...v2.1.0) (2024-10-04)
 
 
