@@ -4,7 +4,7 @@
 		"importHelpers": true,
 		"outDir": "dist",
 		"sourceMap": true,
-		"target": "ES2021"
+		"target": "es2022"
 	},
 	"exclude": ["dist", "coverage", "examples", "jest.config.ts", "node_modules", "test"],
 	"extends": "./tsconfig.json"
