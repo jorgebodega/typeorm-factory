@@ -6,6 +6,9 @@ on:
         description: 'Check release instead of publishing'
         default: "false"
         required: false
+permissions:
+  contents: write
+  id-token: write
 jobs:
   release:
     name: Generate a new release
@@ -19,10 +22,13 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - uses: cycjimmy/semantic-release-action@v3
+      - uses: cycjimmy/semantic-release-action@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
-          semantic_version: 19
           dry_run: ${{ github.event.inputs.dry-run }}
+          extra_plugins: |
+            @semantic-release/changelog
+            @semantic-release/git
+            conventional-changelog-conventionalcommits
+          semantic_version: 25
