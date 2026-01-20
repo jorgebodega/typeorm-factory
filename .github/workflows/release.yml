@@ -6,6 +6,8 @@ on:
         description: 'Check release instead of publishing'
         default: "false"
         required: false
+permissions:
+  id-token: write
 jobs:
   release:
     name: Generate a new release
@@ -24,5 +26,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
-          semantic_version: 19
+          semantic_version: 25
           dry_run: ${{ github.event.inputs.dry-run }}
