@@ -6,7 +6,7 @@
 	"description": "🌱 A delightful way to use factories in your code.",
 	"devDependencies": {
 		"@biomejs/biome": "2.4.6",
-		"@faker-js/faker": "9.9.0",
+		"@faker-js/faker": "10.3.0",
 		"@tsconfig/node24": "24.0.4",
 		"@tsconfig/strictest": "2.0.8",
 		"@types/jest": "30.0.0",
