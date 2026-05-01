@@ -167,6 +167,37 @@ describe(Factory, () => {
 				expect(entity.id).toBeUndefined();
 			}
 		});
+
+		test("Should make entities with array based overrideParams", async () => {
+			const count = 4;
+			const factory = new UserFactory();
+			const entitiesMaked = await factory.makeMany(count, [
+				{ email: "foo@no-reply.bar" },
+				{ email: "foo@no-reply.bar" },
+			]);
+
+			expect(entitiesMaked).toHaveLength(count);
+
+			for (let i = 0; i < count; i++) {
+				const entity = entitiesMaked[i] as User;
+				expect(entity.id).toBeUndefined();
+				expect(entity.email).toEqual(["foo@no-reply.bar", "foo@no-reply.bar"][i % 2]);
+			}
+		});
+
+		test("Should make entities with function based overrideParams", async () => {
+			const count = 4;
+			const factory = new UserFactory();
+			const entitiesMaked = await factory.makeMany(count, (index) => ({ email: `${index}@no-reply.bar` }));
+
+			expect(entitiesMaked).toHaveLength(count);
+
+			for (let i = 0; i < count; i++) {
+				const entity = entitiesMaked[i] as User;
+				expect(entity.id).toBeUndefined();
+				expect(entity.email).toEqual(`${i}@no-reply.bar`);
+			}
+		});
 	});
 
 	describe(Factory.prototype.create, () => {
@@ -322,6 +353,37 @@ describe(Factory, () => {
 			expect(entitiesCreated).toHaveLength(count);
 			for (const entity of entitiesCreated) {
 				expect(entity.id).toBeDefined();
+			}
+		});
+
+		test("Should create entities with array based overrideParams", async () => {
+			const count = 4;
+			const factory = new UserFactory();
+			const entitiesCreated = await factory.createMany(count, [
+				{ email: "foo@no-reply.bar" },
+				{ email: "foo@no-reply.bar" },
+			]);
+
+			expect(entitiesCreated).toHaveLength(count);
+
+			for (let i = 0; i < count; i++) {
+				const entity = entitiesCreated[i] as User;
+				expect(entity.id).toBeDefined();
+				expect(entity.email).toEqual(["foo@no-reply.bar", "foo@no-reply.bar"][i % 2]);
+			}
+		});
+
+		test("Should create entities with function based overrideParams", async () => {
+			const count = 4;
+			const factory = new UserFactory();
+			const entitiesCreated = await factory.createMany(count, (index) => ({ email: `${index}@no-reply.bar` }));
+
+			expect(entitiesCreated).toHaveLength(count);
+
+			for (let i = 0; i < count; i++) {
+				const entity = entitiesCreated[i] as User;
+				expect(entity.id).toBeDefined();
+				expect(entity.email).toEqual(`${i}@no-reply.bar`);
 			}
 		});
 	});
