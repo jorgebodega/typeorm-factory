@@ -46,6 +46,10 @@ export abstract class Factory<T extends object> {
 		const em = this.getEntityManager();
 		const savedEntity = await em.save<T>(entity, saveOptions);
 
+		if (!Object.values(attrs).some((value) => value instanceof LazyInstanceAttribute)) {
+			return savedEntity;
+		}
+
 		await this.applyLazyInstanceAttributes(savedEntity, attrs, true);
 		return em.save<T>(savedEntity, saveOptions);
 	}
