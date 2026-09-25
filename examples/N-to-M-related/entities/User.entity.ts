@@ -1,11 +1,11 @@
 import {
-	Entity,
 	Column,
-	PrimaryGeneratedColumn,
 	CreateDateColumn,
-	UpdateDateColumn,
-	ManyToMany,
+	Entity,
 	JoinTable,
+	ManyToMany,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
 } from "typeorm";
 import { Pet } from "./Pet.entity";
 
