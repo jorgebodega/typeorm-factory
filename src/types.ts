@@ -18,3 +18,5 @@ export type InstanceAttributeCallback<T, V> = (entity: T) => FactorizedAttr<V>;
 // Helper types
 export type Constructable<T> = new () => T;
 export type IsObject<T> = T extends object ? T : never;
+export type GetChildAttrs<T> = (index: number) => Partial<FactorizedAttrs<T>>;
+export type SequenceAttrs<T> = GetChildAttrs<T> | Partial<FactorizedAttrs<T>> | Partial<FactorizedAttrs<T>>[];
