@@ -137,6 +137,20 @@ new UserFactory().makeMany(10, { email: 'other@mail.com' })
 
 the create and createMany method is similar to the make and makeMany method, but at the end the created entity instance gets persisted in the database using TypeORM entity manager.
 
+```mermaid
+flowchart TD
+    A["attrs() merged with overrideParams"] --> B["Resolve simple values, functions and subfactories<br/>(subfactories are created too)"]
+    B --> C["Apply EagerInstanceAttribute values"]
+    C --> D[("save")]
+    D --> E{"Any LazyInstanceAttribute?"}
+    E -- no --> R["Return the entity"]
+    E -- yes --> F["Apply LazyInstanceAttribute values<br/>(the entity already has its id)"]
+    F --> G[("save again")]
+    G --> R
+```
+
+`make` follows the same steps without saving, and its subfactories are made instead of created.
+
 - **overrideParams** - Override some of the attributes of the entity.
 - **saveOptions** - [Save options](https://github.com/typeorm/typeorm/blob/master/src/repository/SaveOptions.ts) from TypeORM
 
