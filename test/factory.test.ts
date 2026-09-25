@@ -1,3 +1,4 @@
+import { EntityManager } from "typeorm";
 import { CollectionSubfactory, EagerInstanceAttribute, Factory, LazyInstanceAttribute, SingleSubfactory } from "../src";
 import { dataSource } from "./fixtures/dataSource";
 import { Pet } from "./fixtures/Pet.entity";
@@ -186,7 +187,12 @@ describe(Factory, () => {
 			const factory = new UserFactory();
 
 			test("Should create a new entity", async () => {
+				const saveSpy = jest.spyOn(EntityManager.prototype, "save");
+
 				const userCreated = await factory.create();
+
+				expect(saveSpy).toHaveBeenCalledTimes(1);
+				saveSpy.mockRestore();
 
 				expect(userCreated).toBeInstanceOf(User);
 				expect(userCreated.id).toBeDefined();
@@ -236,13 +242,13 @@ describe(Factory, () => {
 
 			test("Should create a new entity with lazy instance attributes", async () => {
 				const userCreated = await factory.create({
-					email: new EagerInstanceAttribute((instance) =>
-						[instance.name.toLowerCase(), instance.lastName.toLowerCase(), "@email.com"].join(""),
-					),
+					secondLastName: new LazyInstanceAttribute((instance) => `lazy-${instance.id}`),
 				});
 
-				expect(userCreated.email).toMatch(userCreated.name.toLowerCase());
-				expect(userCreated.email).toMatch(userCreated.lastName.toLowerCase());
+				const userStored = await dataSource.getRepository(User).findOneByOrFail({ id: userCreated.id });
+
+				expect(userCreated.secondLastName).toBe(`lazy-${userCreated.id}`);
+				expect(userStored.secondLastName).toBe(userCreated.secondLastName);
 			});
 
 			test("Should create a new entity with multiple subfactories", async () => {
