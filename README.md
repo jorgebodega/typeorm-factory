@@ -21,6 +21,7 @@
 # Contents
 
 - [Installation](#installation)
+- [Compatibility](#compatibility)
 - [Introduction](#introduction)
 - [Factory](#factory-1)
   - [`make` & `makeMany`](#make--makemany)
@@ -37,6 +38,7 @@
   - [1-to-1 chained related](examples/1-to-1-chained-related/README.md)
   - [1-to-N related](examples/1-to-N-related/README.md)
   - [N-to-M related](examples/N-to-M-related/README.md)
+- [Development](#development)
 
 # Installation
 
@@ -50,10 +52,14 @@ yarn add [-D] @jorgebodega/typeorm-factory
 pnpm add [-D] @jorgebodega/typeorm-factory
 ```
 
-# Node.js support (aligned with TypeORM)
+# Compatibility
 
-This package follows TypeORM’s supported Node.js versions.
-Current range: `^20.19.0 || ^22.12.0 || >=24.11.0` (per TypeORM).
+| Version | TypeORM   | Node.js                                 | Branch | Status                                                                        |
+| ------- | --------- | --------------------------------------- | ------ | ----------------------------------------------------------------------------- |
+| 3.x     | `^0.3.28` | `^20.19.0 \|\| ^22.12.0 \|\| >=24.11.0` | `main` | Stable. Last major supporting TypeORM 0.3; moves to `3.x` for security fixes. |
+| 4.x     | `^1.0.0`  | `^20.19.0 \|\| ^22.13.0 \|\| >=24.11.0` | `next` | In development, published with the `next` npm tag.                            |
+
+Node.js ranges follow the ones supported by TypeORM.
 
 # Introduction
 
@@ -130,6 +136,20 @@ new UserFactory().makeMany(10, { email: 'other@mail.com' })
 ## `create` & `createMany`
 
 the create and createMany method is similar to the make and makeMany method, but at the end the created entity instance gets persisted in the database using TypeORM entity manager.
+
+```mermaid
+flowchart TD
+    A["attrs() merged with overrideParams"] --> B["Resolve simple values, functions and subfactories<br/>(subfactories are created too)"]
+    B --> C["Apply EagerInstanceAttribute values"]
+    C --> D[("save")]
+    D --> E{"Any LazyInstanceAttribute?"}
+    E -- no --> R["Return the entity"]
+    E -- yes --> F["Apply LazyInstanceAttribute values<br/>(the entity already has its id)"]
+    F --> G[("save again")]
+    G --> R
+```
+
+`make` follows the same steps without saving, and its subfactories are made instead of created.
 
 - **overrideParams** - Override some of the attributes of the entity.
 - **saveOptions** - [Save options](https://github.com/typeorm/typeorm/blob/master/src/repository/SaveOptions.ts) from TypeORM
@@ -286,3 +306,21 @@ Some basic examples of how to use the library could be found on the `examples`  
 - [1-to-1 chained related](examples/1-to-1-chained-related/README.md)
 - [1-to-N related](examples/1-to-N-related/README.md)
 - [N-to-M related](examples/N-to-M-related/README.md)
+
+# Development
+
+Use the Node.js version in `.node-version` and pnpm (`corepack enable`).
+
+```bash
+pnpm install
+pnpm checks     # format, lint (including import order) and typecheck
+pnpm lint:fix   # apply safe lint fixes and sort imports
+pnpm test       # jest against in-memory sqlite
+pnpm build
+```
+
+- `next`: development branch. Releases prereleases with the `next` npm tag.
+- `main`: stable releases with the `latest` npm tag.
+- `N.x`: maintenance branch of a previous major. Security fixes only, released with the `release-N.x` npm tag.
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org). Releases are created by the manual **Release** workflow (semantic-release); run it with `dry-run` first.
