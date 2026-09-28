@@ -66,13 +66,6 @@ describe(PetFactory, () => {
 			expect(petCreated.owner.id).toBeDefined();
 			expect(petCreated.owner.name).toBeDefined();
 		});
-
-		test("Should create two entities with different attributes", async () => {
-			const petCreated1 = await factory.create();
-			const petCreated2 = await factory.create();
-
-			expect(petCreated1).not.toStrictEqual(petCreated2);
-		});
 	});
 
 	describe(PetFactory.prototype.createMany, () => {

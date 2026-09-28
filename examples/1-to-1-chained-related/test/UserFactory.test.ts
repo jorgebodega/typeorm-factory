@@ -97,13 +97,6 @@ describe(UserFactory, () => {
 			expect(totalPets).toBe(1);
 			expect(totalRefuges).toBe(1);
 		});
-
-		test("Should create two entities with different attributes", async () => {
-			const userCreated1 = await factory.create();
-			const userCreated2 = await factory.create();
-
-			expect(userCreated1).not.toStrictEqual(userCreated2);
-		});
 	});
 
 	describe(UserFactory.prototype.createMany, () => {

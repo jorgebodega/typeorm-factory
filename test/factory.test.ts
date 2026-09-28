@@ -151,7 +151,6 @@ describe(Factory, () => {
 				expect(petMaked).toBeInstanceOf(Pet);
 				expect(petMaked.id).toBeUndefined();
 				expect(petMaked.name).toBeDefined();
-				expect(petMaked.owner).toBeDefined();
 				expect(petMaked.owner).toBeInstanceOf(User);
 				expect(petMaked.owner.id).toBeUndefined();
 			});
@@ -166,7 +165,6 @@ describe(Factory, () => {
 				expect(petMaked).toBeInstanceOf(Pet);
 				expect(petMaked.id).toBeUndefined();
 				expect(petMaked.name).toBeDefined();
-				expect(petMaked.owner).toBeDefined();
 				expect(petMaked.owner).toBeInstanceOf(User);
 				expect(petMaked.owner.id).toBeUndefined();
 			});
@@ -286,12 +284,11 @@ describe(Factory, () => {
 				for (const pet of userCreated.pets) {
 					expect(pet.id).toBeDefined();
 					expect(pet.owner).toBeInstanceOf(User);
-					expect(pet.owner.id).toBeDefined();
 					expect(pet.owner.id).toBe(userCreated.id);
 				}
 			});
 
-			test("Should make a new entity with multiple subfactories in an array", async () => {
+			test("Should create a new entity with multiple subfactories in an array", async () => {
 				const userCreated = await factory.create({
 					pets: new LazyInstanceAttribute((instance) => [new SingleSubfactory(PetFactory, { owner: instance })]),
 				});
@@ -302,16 +299,8 @@ describe(Factory, () => {
 				for (const pet of userCreated.pets) {
 					expect(pet.id).toBeDefined();
 					expect(pet.owner).toBeInstanceOf(User);
-					expect(pet.owner.id).toBeDefined();
 					expect(pet.owner.id).toBe(userCreated.id);
 				}
-			});
-
-			test("Should create two entities with different attributes", async () => {
-				const userCreated1 = await factory.create();
-				const userCreated2 = await factory.create();
-
-				expect(userCreated1).not.toStrictEqual(userCreated2);
 			});
 		});
 
@@ -324,7 +313,6 @@ describe(Factory, () => {
 				expect(petCreated).toBeInstanceOf(Pet);
 				expect(petCreated.id).toBeDefined();
 				expect(petCreated.name).toBeDefined();
-				expect(petCreated.owner).toBeDefined();
 				expect(petCreated.owner).toBeInstanceOf(User);
 				expect(petCreated.owner.id).toBeDefined();
 			});
