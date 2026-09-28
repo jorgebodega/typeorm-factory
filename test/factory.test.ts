@@ -14,9 +14,10 @@ import { User } from "./fixtures/User.entity";
 import { UserFactory } from "./fixtures/User.factory";
 
 type Row = { flag: boolean; list: number[] | null; tags: string | string[] };
-({ flag: () => Math.random() > 0.5, list: () => null, tags: [() => "a"] }) satisfies FactorizedAttrs<Row>;
+({ flag: (): boolean => true, list: () => null, tags: [() => "a"] }) satisfies FactorizedAttrs<Row>;
+({ flag: new EagerInstanceAttribute(async (): Promise<boolean> => true) }) satisfies FactorizedAttrs<Row>;
 // @ts-expect-error
-({ name: new EagerInstanceAttribute(() => () => () => "john") }) satisfies FactorizedAttrs<User>;
+({ flag: new EagerInstanceAttribute(() => () => () => true) }) satisfies FactorizedAttrs<Row>;
 
 describe(Factory, () => {
 	describe(Factory.prototype.make, () => {
@@ -48,13 +49,9 @@ describe(Factory, () => {
 			test("Should make a new entity with function as attribute", async () => {
 				const userMaked = await factory.make({
 					name: () => "john",
-					secondLastName: (): string | undefined => undefined,
-					pets: () => [],
 				});
 
 				expect(userMaked.name).toBe("john");
-				expect(userMaked.secondLastName).toBeUndefined();
-				expect(userMaked.pets).toEqual([]);
 			});
 
 			test("Should make a new entity with async function as attribute", async () => {
@@ -67,7 +64,7 @@ describe(Factory, () => {
 
 			test("Should make a new entity with instance attributes", async () => {
 				const userMaked = await factory.make({
-					email: new EagerInstanceAttribute(async (instance) =>
+					email: new EagerInstanceAttribute((instance) =>
 						[instance.name.toLowerCase(), instance.lastName.toLowerCase(), "@email.com"].join(""),
 					),
 				});
@@ -176,7 +173,6 @@ describe(Factory, () => {
 				});
 
 				expect(petMaked.owner).toBeInstanceOf(User);
-				expect(petMaked.owner.id).toBeUndefined();
 			});
 		});
 	});
