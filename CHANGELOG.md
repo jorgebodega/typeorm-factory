@@ -1,3 +1,13 @@
+## [4.0.0-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v3.0.0...v4.0.0-next.1) (2026-09-28)
+
+### ⚠ BREAKING CHANGES
+
+* require typeorm 1 (#232)
+
+### Features
+
+* require typeorm 1 ([#232](https://github.com/jorgebodega/typeorm-factory/issues/232)) ([33c17a0](https://github.com/jorgebodega/typeorm-factory/commit/33c17a087c4e1afd036348a8205cafb61721c499))
+
 ## [3.0.0](https://github.com/jorgebodega/typeorm-factory/compare/v2.1.0...v3.0.0) (2026-09-28)
 
 ### ⚠ BREAKING CHANGES
