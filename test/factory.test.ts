@@ -74,14 +74,18 @@ describe(Factory, () => {
 			});
 
 			test("Should make a new entity with lazy instance attributes", async () => {
+				let nameSeenByEager: unknown;
+
 				const userMaked = await factory.make({
-					email: new EagerInstanceAttribute((instance) =>
-						[instance.name.toLowerCase(), instance.lastName.toLowerCase(), "@email.com"].join(""),
-					),
+					name: new LazyInstanceAttribute(() => "john"),
+					email: new EagerInstanceAttribute((instance) => {
+						nameSeenByEager = instance.name;
+						return "john@email.com";
+					}),
 				});
 
-				expect(userMaked.email).toMatch(userMaked.name.toLowerCase());
-				expect(userMaked.email).toMatch(userMaked.lastName.toLowerCase());
+				expect(nameSeenByEager).toBeUndefined();
+				expect(userMaked.name).toBe("john");
 			});
 
 			test("Should make a new entity with multiple subfactories", async () => {
@@ -213,7 +217,6 @@ describe(Factory, () => {
 				const userCreated = await factory.create();
 
 				expect(saveSpy).toHaveBeenCalledTimes(1);
-				saveSpy.mockRestore();
 
 				expect(userCreated).toBeInstanceOf(User);
 				expect(userCreated.id).toBeDefined();
