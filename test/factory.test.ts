@@ -36,9 +36,11 @@ describe(Factory, () => {
 			test("Should make a new entity with function as attribute", async () => {
 				const userMaked = await factory.make({
 					name: () => "john",
+					secondLastName: (): string | undefined => undefined,
 				});
 
 				expect(userMaked.name).toBe("john");
+				expect(userMaked.secondLastName).toBeUndefined();
 			});
 
 			test("Should make a new entity with async function as attribute", async () => {
@@ -51,13 +53,22 @@ describe(Factory, () => {
 
 			test("Should make a new entity with instance attributes", async () => {
 				const userMaked = await factory.make({
-					email: new EagerInstanceAttribute((instance) =>
+					email: new EagerInstanceAttribute(async (instance) =>
 						[instance.name.toLowerCase(), instance.lastName.toLowerCase(), "@email.com"].join(""),
 					),
 				});
 
 				expect(userMaked.email).toMatch(userMaked.name.toLowerCase());
 				expect(userMaked.email).toMatch(userMaked.lastName.toLowerCase());
+			});
+
+			test("Should leave a nested function unresolved in instance attributes", async () => {
+				const userMaked = await factory.make({
+					// @ts-expect-error
+					name: new EagerInstanceAttribute(() => () => () => "john"),
+				});
+
+				expect(typeof userMaked.name).toBe("function");
 			});
 
 			test("Should make a new entity with lazy instance attributes", async () => {
