@@ -89,7 +89,7 @@ export abstract class Factory<T extends object> {
 		await Promise.all(
 			Object.entries(attrs).map(async ([key, value]) => {
 				if (value instanceof EagerInstanceAttribute) {
-					const newAttrib = value.resolve(entity);
+					const newAttrib = await value.resolve(entity);
 					Object.assign(entity, { [key]: await Factory.resolveValue(newAttrib, shouldPersist) });
 				}
 			}),
@@ -100,7 +100,7 @@ export abstract class Factory<T extends object> {
 		await Promise.all(
 			Object.entries(attrs).map(async ([key, value]) => {
 				if (value instanceof LazyInstanceAttribute) {
-					const newAttrib = value.resolve(entity);
+					const newAttrib = await value.resolve(entity);
 					Object.assign(entity, { [key]: await Factory.resolveValue(newAttrib, shouldPersist) });
 				}
 			}),

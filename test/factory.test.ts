@@ -1,10 +1,23 @@
 import { EntityManager } from "typeorm";
-import { CollectionSubfactory, EagerInstanceAttribute, Factory, LazyInstanceAttribute, SingleSubfactory } from "../src";
+import {
+	CollectionSubfactory,
+	EagerInstanceAttribute,
+	type FactorizedAttrs,
+	Factory,
+	LazyInstanceAttribute,
+	SingleSubfactory,
+} from "../src";
 import { dataSource } from "./fixtures/dataSource";
 import { Pet } from "./fixtures/Pet.entity";
 import { PetFactory } from "./fixtures/Pet.factory";
 import { User } from "./fixtures/User.entity";
 import { UserFactory } from "./fixtures/User.factory";
+
+type Row = { flag: boolean; list: number[] | null; tags: string | string[] };
+({ flag: (): boolean => true, list: () => null, tags: [() => "a"] }) satisfies FactorizedAttrs<Row>;
+({ flag: new EagerInstanceAttribute(async (): Promise<boolean> => true) }) satisfies FactorizedAttrs<Row>;
+// @ts-expect-error
+({ flag: new EagerInstanceAttribute(() => () => () => true) }) satisfies FactorizedAttrs<Row>;
 
 describe(Factory, () => {
 	describe(Factory.prototype.make, () => {
@@ -152,6 +165,14 @@ describe(Factory, () => {
 				expect(petMaked.owner).toBeDefined();
 				expect(petMaked.owner).toBeInstanceOf(User);
 				expect(petMaked.owner.id).toBeUndefined();
+			});
+
+			test("Should make a new entity with async subfactory as instance attribute", async () => {
+				const petMaked = await factory.make({
+					owner: new LazyInstanceAttribute(async (instance) => new SingleSubfactory(UserFactory, { pets: [instance] })),
+				});
+
+				expect(petMaked.owner).toBeInstanceOf(User);
 			});
 		});
 	});
