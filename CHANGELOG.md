@@ -1,3 +1,25 @@
+## [3.0.0](https://github.com/jorgebodega/typeorm-factory/compare/v2.1.0...v3.0.0) (2026-09-28)
+
+### ⚠ BREAKING CHANGES
+
+* correct FactorizedAttrs typing (#229)
+* update node requirements (#194)
+
+### Features
+
+* update node requirements ([#194](https://github.com/jorgebodega/typeorm-factory/issues/194)) ([221735f](https://github.com/jorgebodega/typeorm-factory/commit/221735fe4a5e92de9dfe266e01aae710ab6accef))
+* upgrade biome ([#195](https://github.com/jorgebodega/typeorm-factory/issues/195)) ([49d987e](https://github.com/jorgebodega/typeorm-factory/commit/49d987ea1f4c60281dd75383269991e46343d2f2))
+* upgrade pnpm ([#221](https://github.com/jorgebodega/typeorm-factory/issues/221)) ([aaafcbb](https://github.com/jorgebodega/typeorm-factory/commit/aaafcbba88cd1498dca686f1b1ddb1ab07a0ab6a))
+* upgrade pnpm action ([#201](https://github.com/jorgebodega/typeorm-factory/issues/201)) ([bd57cf9](https://github.com/jorgebodega/typeorm-factory/commit/bd57cf9eb493baf5033739b39348ea9a095f713b))
+* upgrade renovate.json ([#197](https://github.com/jorgebodega/typeorm-factory/issues/197)) ([6118bbe](https://github.com/jorgebodega/typeorm-factory/commit/6118bbec73275e7f0fa18c6acb4cec0d4f5d0073))
+
+### Bug Fixes
+
+* apply pre-release review fixes ([#230](https://github.com/jorgebodega/typeorm-factory/issues/230)) ([d86c2ee](https://github.com/jorgebodega/typeorm-factory/commit/d86c2ee6028424cde68b2731b20d67fa053d530e))
+* correct FactorizedAttrs typing ([#229](https://github.com/jorgebodega/typeorm-factory/issues/229)) ([61fda92](https://github.com/jorgebodega/typeorm-factory/commit/61fda9232ecab1056b8981e5a783dcefbcea231d))
+* include jest types in tsconfig ([#220](https://github.com/jorgebodega/typeorm-factory/issues/220)) ([ca5377a](https://github.com/jorgebodega/typeorm-factory/commit/ca5377ac19b006165ad8b7fef7ba91644adbd620))
+* skip redundant save and keep original seeding errors ([#224](https://github.com/jorgebodega/typeorm-factory/issues/224)) ([9e5c55a](https://github.com/jorgebodega/typeorm-factory/commit/9e5c55a9e115af2ff04ae91c4a9334c35be37c5e))
+
 ## [3.0.0-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v2.1.0...v3.0.0-next.1) (2026-01-20)
 
 ### ⚠ BREAKING CHANGES
