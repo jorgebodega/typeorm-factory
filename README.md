@@ -57,7 +57,7 @@ pnpm add [-D] @jorgebodega/typeorm-factory
 | Version | TypeORM   | Node.js                                 | Branch | Status                                                                        |
 | ------- | --------- | --------------------------------------- | ------ | ----------------------------------------------------------------------------- |
 | 3.x     | `^0.3.28` | `^20.19.0 \|\| ^22.12.0 \|\| >=24.11.0` | `main` | Stable. Last major supporting TypeORM 0.3; moves to `3.x` for security fixes. |
-| 4.x     | `^1.0.0`  | `^20.19.0 \|\| ^22.13.0 \|\| >=24.11.0` | `next` | In development, published with the `next` npm tag.                            |
+| 4.x     | `>=1.0.0` | `^20.19.0 \|\| ^22.13.0 \|\| >=24.11.0` | `next` | In development, published with the `next` npm tag.                            |
 
 Node.js ranges follow the ones supported by TypeORM.
 
