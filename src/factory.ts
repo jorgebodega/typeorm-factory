@@ -1,7 +1,7 @@
 import type { DataSource, SaveOptions } from "typeorm";
 import { EagerInstanceAttribute, InstanceAttribute, LazyInstanceAttribute } from "./instanceAttributes";
 import { BaseSubfactory } from "./subfactories";
-import type { Constructable, FactorizedAttrs } from "./types";
+import type { Constructable, FactorizedAttrs, SequenceAttrs } from "./types";
 
 type AttrEntries = [string, unknown][];
 
@@ -27,10 +27,11 @@ export abstract class Factory<T extends object> {
 	/**
 	 * Make many new entities without persisting them
 	 */
-	async makeMany(amount: number, overrideParams: Partial<FactorizedAttrs<T>> = {}): Promise<T[]> {
+	async makeMany(amount: number, overrideParams: SequenceAttrs<T> = {}): Promise<T[]> {
 		const list = [];
 		for (let index = 0; index < amount; index++) {
-			list[index] = await this.make(overrideParams);
+			const attrs = await this.getAttrsFromSequence(index, overrideParams);
+			list[index] = await this.make(attrs);
 		}
 		return list;
 	}
@@ -59,14 +60,11 @@ export abstract class Factory<T extends object> {
 	/**
 	 * Create many new entities and persist them
 	 */
-	async createMany(
-		amount: number,
-		overrideParams: Partial<FactorizedAttrs<T>> = {},
-		saveOptions?: SaveOptions,
-	): Promise<T[]> {
+	async createMany(amount: number, overrideParams: SequenceAttrs<T> = {}, saveOptions?: SaveOptions): Promise<T[]> {
 		const list = [];
 		for (let index = 0; index < amount; index++) {
-			list[index] = await this.create(overrideParams, saveOptions);
+			const attrs = await this.getAttrsFromSequence(index, overrideParams);
+			list[index] = await this.create(attrs, saveOptions);
 		}
 		return list;
 	}
@@ -100,6 +98,12 @@ export abstract class Factory<T extends object> {
 				Object.assign(entity, { [key]: await Factory.resolveValue(attr, shouldPersist) });
 			}),
 		);
+	}
+
+	private async getAttrsFromSequence<T>(index: number, params: SequenceAttrs<T>): Promise<Partial<FactorizedAttrs<T>>> {
+		if (typeof params === "function") return params(index);
+		if (Array.isArray(params)) return params[index % params.length] ?? {};
+		return params;
 	}
 
 	private static async resolveValue(value: unknown, shouldPersist: boolean): Promise<unknown> {
