@@ -14,7 +14,7 @@ export class UserFactory extends Factory<User> {
 			lastName: faker.person.lastName(),
 			age: faker.number.int({ min: 18, max: 65 }),
 			email: faker.internet.email(),
-			pets: () => [],
+			pets: [],
 		};
 	}
 }

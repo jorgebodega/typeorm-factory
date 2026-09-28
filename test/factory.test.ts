@@ -1,10 +1,22 @@
 import { EntityManager } from "typeorm";
-import { CollectionSubfactory, EagerInstanceAttribute, Factory, LazyInstanceAttribute, SingleSubfactory } from "../src";
+import {
+	CollectionSubfactory,
+	EagerInstanceAttribute,
+	type FactorizedAttrs,
+	Factory,
+	LazyInstanceAttribute,
+	SingleSubfactory,
+} from "../src";
 import { dataSource } from "./fixtures/dataSource";
 import { Pet } from "./fixtures/Pet.entity";
 import { PetFactory } from "./fixtures/Pet.factory";
 import { User } from "./fixtures/User.entity";
 import { UserFactory } from "./fixtures/User.factory";
+
+type Row = { flag: boolean; list: number[] | null; tags: string | string[] };
+({ flag: () => Math.random() > 0.5, list: () => null, tags: [() => "a"] }) satisfies FactorizedAttrs<Row>;
+// @ts-expect-error
+({ name: new EagerInstanceAttribute(() => () => () => "john") }) satisfies FactorizedAttrs<User>;
 
 describe(Factory, () => {
 	describe(Factory.prototype.make, () => {
@@ -37,10 +49,12 @@ describe(Factory, () => {
 				const userMaked = await factory.make({
 					name: () => "john",
 					secondLastName: (): string | undefined => undefined,
+					pets: () => [],
 				});
 
 				expect(userMaked.name).toBe("john");
 				expect(userMaked.secondLastName).toBeUndefined();
+				expect(userMaked.pets).toEqual([]);
 			});
 
 			test("Should make a new entity with async function as attribute", async () => {
@@ -60,15 +74,6 @@ describe(Factory, () => {
 
 				expect(userMaked.email).toMatch(userMaked.name.toLowerCase());
 				expect(userMaked.email).toMatch(userMaked.lastName.toLowerCase());
-			});
-
-			test("Should leave a nested function unresolved in instance attributes", async () => {
-				const userMaked = await factory.make({
-					// @ts-expect-error
-					name: new EagerInstanceAttribute(() => () => () => "john"),
-				});
-
-				expect(typeof userMaked.name).toBe("function");
 			});
 
 			test("Should make a new entity with lazy instance attributes", async () => {
@@ -161,6 +166,15 @@ describe(Factory, () => {
 				expect(petMaked.id).toBeUndefined();
 				expect(petMaked.name).toBeDefined();
 				expect(petMaked.owner).toBeDefined();
+				expect(petMaked.owner).toBeInstanceOf(User);
+				expect(petMaked.owner.id).toBeUndefined();
+			});
+
+			test("Should make a new entity with async subfactory as instance attribute", async () => {
+				const petMaked = await factory.make({
+					owner: new LazyInstanceAttribute(async (instance) => new SingleSubfactory(UserFactory, { pets: [instance] })),
+				});
+
 				expect(petMaked.owner).toBeInstanceOf(User);
 				expect(petMaked.owner.id).toBeUndefined();
 			});
