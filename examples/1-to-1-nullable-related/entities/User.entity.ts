@@ -1,4 +1,12 @@
-import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	OneToOne,
+	PrimaryGeneratedColumn,
+	type Relation,
+	UpdateDateColumn,
+} from "typeorm";
 import { Pet } from "./Pet.entity";
 
 @Entity()
@@ -23,5 +31,5 @@ export class User {
 		(pet) => pet.owner,
 		{ nullable: true },
 	)
-	pet?: Pet;
+	pet?: Relation<Pet>;
 }
