@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, type Relation } from "typeorm";
 import { Refuge } from "./Refuge.entity";
 import { User } from "./User.entity";
 
@@ -16,12 +16,12 @@ export class Pet {
 		{ nullable: false },
 	)
 	@JoinColumn({ name: "owner_id" })
-	owner!: User;
+	owner!: Relation<User>;
 
 	@OneToOne(
 		() => Refuge,
 		(refuge) => refuge.pet,
 		{ nullable: false },
 	)
-	refuge!: Refuge;
+	refuge!: Relation<Refuge>;
 }
