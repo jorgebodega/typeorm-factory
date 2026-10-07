@@ -30,7 +30,6 @@ describe(UserFactory, () => {
 			expect(userMaked.name).toBeDefined();
 			expect(userMaked.lastName).toBeDefined();
 
-			expect(userMaked.pet).toBeDefined();
 			expect(userMaked.pet).toBeInstanceOf(Pet);
 			expect(userMaked.pet?.id).toBeUndefined();
 			expect(userMaked.pet?.name).toBeDefined();
@@ -101,7 +100,6 @@ describe(UserFactory, () => {
 			expect(userCreated.name).toBeDefined();
 			expect(userCreated.lastName).toBeDefined();
 
-			expect(userCreated.pet).toBeDefined();
 			expect(userCreated.pet).toBeInstanceOf(Pet);
 			expect(userCreated.pet?.id).toBeDefined();
 			expect(userCreated.pet?.owner).toEqual(userCreated);
