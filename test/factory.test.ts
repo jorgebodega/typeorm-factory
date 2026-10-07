@@ -177,6 +177,12 @@ describe(Factory, () => {
 				expect(entity.id).toBeUndefined();
 			}
 		});
+
+		test("Should make many new entities with index based overrides", async () => {
+			const entitiesMaked = await new UserFactory().makeMany(2, (index) => ({ name: `user-${index}` }));
+
+			expect(entitiesMaked.map((entity) => entity.name)).toEqual(["user-0", "user-1"]);
+		});
 	});
 
 	describe(Factory.prototype.create, () => {
@@ -277,6 +283,12 @@ describe(Factory, () => {
 			for (const entity of entitiesCreated) {
 				expect(entity.id).toBeDefined();
 			}
+		});
+
+		test("Should create many new entities with index based overrides", async () => {
+			const entitiesCreated = await new UserFactory().createMany(2, (index) => ({ name: `user-${index}` }));
+
+			expect(entitiesCreated.map((entity) => entity.name)).toEqual(["user-0", "user-1"]);
 		});
 	});
 });
