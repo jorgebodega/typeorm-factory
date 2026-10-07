@@ -1,3 +1,9 @@
+## [4.0.0-next.3](https://github.com/jorgebodega/typeorm-factory/compare/v4.0.0-next.2...v4.0.0-next.3) (2026-10-07)
+
+### Features
+
+* accept an index callback in makeMany and createMany ([#243](https://github.com/jorgebodega/typeorm-factory/issues/243)) ([46a08a2](https://github.com/jorgebodega/typeorm-factory/commit/46a08a2bf2ce4da43d1f967f2d39559769029c3a))
+
 ## [4.0.0-next.2](https://github.com/jorgebodega/typeorm-factory/compare/v4.0.0-next.1...v4.0.0-next.2) (2026-10-07)
 
 ### Features
