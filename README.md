@@ -117,11 +117,11 @@ class UserFactory extends Factory<User> {
 
 Make and makeMany executes the factory functions and return a new instance of the given entity. The instance is filled with the generated values from the factory function, but not saved in the database.
 
-- **overrideParams** - Override some of the attributes of the entity.
+- **overrideParams** - Override some of the attributes of the entity. In `makeMany` it can also be a function that receives the index of each entity.
 
 ```ts
 make(overrideParams: Partial<FactorizedAttrs<T>> = {}): Promise<T>
-makeMany(amount: number, overrideParams: Partial<FactorizedAttrs<T>> = {}): Promise<T[]>
+makeMany(amount: number, overrideParams: Partial<FactorizedAttrs<T>> | ((index: number) => Partial<FactorizedAttrs<T>>) = {}): Promise<T[]>
 ```
 
 ```ts
@@ -131,6 +131,9 @@ new UserFactory().makeMany(10)
 // override the email
 new UserFactory().make({ email: 'other@mail.com' })
 new UserFactory().makeMany(10, { email: 'other@mail.com' })
+
+// override using the index of each entity
+new UserFactory().makeMany(10, (index) => ({ email: `user-${index}@mail.com` }))
 ```
 
 ## `create` & `createMany`
@@ -151,12 +154,12 @@ flowchart TD
 
 `make` follows the same steps without saving, and its subfactories are made instead of created.
 
-- **overrideParams** - Override some of the attributes of the entity.
+- **overrideParams** - Override some of the attributes of the entity. In `createMany` it can also be a function that receives the index of each entity.
 - **saveOptions** - [Save options](https://github.com/typeorm/typeorm/blob/master/src/repository/SaveOptions.ts) from TypeORM
 
 ```ts
 create(overrideParams: Partial<FactorizedAttrs<T>> = {}, saveOptions?: SaveOptions): Promise<T>
-createMany(amount: number, overrideParams: Partial<FactorizedAttrs<T>> = {}, saveOptions?: SaveOptions): Promise<T[]>
+createMany(amount: number, overrideParams: Partial<FactorizedAttrs<T>> | ((index: number) => Partial<FactorizedAttrs<T>>) = {}, saveOptions?: SaveOptions): Promise<T[]>
 ```
 
 ```ts
@@ -166,6 +169,9 @@ new UserFactory().createMany(10)
 // override the email
 new UserFactory().create({ email: 'other@mail.com' })
 new UserFactory().createMany(10, { email: 'other@mail.com' })
+
+// override using the index of each entity
+new UserFactory().createMany(10, (index) => ({ email: `user-${index}@mail.com` }))
 
 // using save options
 new UserFactory().create({ email: 'other@mail.com' }, { listeners: false })

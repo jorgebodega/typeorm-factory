@@ -4,6 +4,7 @@ import { BaseSubfactory } from "./subfactories";
 import type { Constructable, FactorizedAttrs } from "./types";
 
 type AttrEntries = [string, unknown][];
+type Overrides<T> = Partial<FactorizedAttrs<T>> | ((index: number) => Partial<FactorizedAttrs<T>>);
 
 export abstract class Factory<T extends object> {
 	protected abstract entity: Constructable<T>;
@@ -27,10 +28,10 @@ export abstract class Factory<T extends object> {
 	/**
 	 * Make many new entities without persisting them
 	 */
-	async makeMany(amount: number, overrideParams: Partial<FactorizedAttrs<T>> = {}): Promise<T[]> {
+	async makeMany(amount: number, overrideParams: Overrides<T> = {}): Promise<T[]> {
 		const list = [];
 		for (let index = 0; index < amount; index++) {
-			list[index] = await this.make(overrideParams);
+			list[index] = await this.make(typeof overrideParams === "function" ? overrideParams(index) : overrideParams);
 		}
 		return list;
 	}
@@ -59,14 +60,13 @@ export abstract class Factory<T extends object> {
 	/**
 	 * Create many new entities and persist them
 	 */
-	async createMany(
-		amount: number,
-		overrideParams: Partial<FactorizedAttrs<T>> = {},
-		saveOptions?: SaveOptions,
-	): Promise<T[]> {
+	async createMany(amount: number, overrideParams: Overrides<T> = {}, saveOptions?: SaveOptions): Promise<T[]> {
 		const list = [];
 		for (let index = 0; index < amount; index++) {
-			list[index] = await this.create(overrideParams, saveOptions);
+			list[index] = await this.create(
+				typeof overrideParams === "function" ? overrideParams(index) : overrideParams,
+				saveOptions,
+			);
 		}
 		return list;
 	}
