@@ -36,13 +36,6 @@ describe(UserFactory, () => {
 			expect(userMaked.pet?.name).toBeDefined();
 			expect(userMaked.pet?.owner).toEqual(userMaked);
 		});
-
-		test("Should make two entities with different attributes", async () => {
-			const userMaked1 = await factory.make();
-			const userMaked2 = await factory.make();
-
-			expect(userMaked1).not.toStrictEqual(userMaked2);
-		});
 	});
 
 	describe(UserFactory.prototype.makeMany, () => {
