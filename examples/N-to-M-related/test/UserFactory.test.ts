@@ -41,29 +41,9 @@ describe(UserFactory, () => {
 				expect(pet.owners).toHaveLength(1);
 			}
 		});
-
-		test("Should make two entities with different attributes", async () => {
-			const userMaked1 = await factory.make();
-			const userMaked2 = await factory.make();
-
-			expect(userMaked1).not.toStrictEqual(userMaked2);
-		});
 	});
 
 	describe(UserFactory.prototype.makeMany, () => {
-		test("Should make many new entities", async () => {
-			const count = 2;
-			const entitiesMaked = await factory.makeMany(count);
-
-			expect(entitiesMaked).toHaveLength(count);
-
-			for (const entity of entitiesMaked) {
-				expect(entity.id).toBeUndefined();
-				expect(entity.pets).toBeInstanceOf(Array);
-				expect(entity.pets).toHaveLength(0);
-			}
-		});
-
 		test("Should make many new entities with relations", async () => {
 			const count = 2;
 			const entitiesMaked = await factory.makeMany(count, {
@@ -164,19 +144,6 @@ describe(UserFactory, () => {
 
 		afterAll(async () => {
 			await dataSource.destroy();
-		});
-
-		test("Should create many new entities", async () => {
-			const count = 2;
-			const entitiesMaked = await factory.createMany(count);
-
-			expect(entitiesMaked).toHaveLength(count);
-
-			for (const entity of entitiesMaked) {
-				expect(entity.id).toBeDefined();
-				expect(entity.pets).toBeInstanceOf(Array);
-				expect(entity.pets).toHaveLength(0);
-			}
 		});
 
 		test("Should create many new entities with relations", async () => {

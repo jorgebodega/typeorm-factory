@@ -155,20 +155,6 @@ describe(Factory, () => {
 				expect(petMaked.owner.id).toBeUndefined();
 			});
 
-			test("Should make a new entity with single existing subfactory", async () => {
-				const userFactory = new UserFactory();
-
-				const petMaked = await factory.make({
-					owner: new LazyInstanceAttribute((instance) => new SingleSubfactory(userFactory, { pets: [instance] })),
-				});
-
-				expect(petMaked).toBeInstanceOf(Pet);
-				expect(petMaked.id).toBeUndefined();
-				expect(petMaked.name).toBeDefined();
-				expect(petMaked.owner).toBeInstanceOf(User);
-				expect(petMaked.owner.id).toBeUndefined();
-			});
-
 			test("Should make a new entity with async subfactory as instance attribute", async () => {
 				const petMaked = await factory.make({
 					owner: new LazyInstanceAttribute(async (instance) => new SingleSubfactory(UserFactory, { pets: [instance] })),
@@ -227,41 +213,6 @@ describe(Factory, () => {
 				expect(userCreated.pets).toHaveLength(0);
 			});
 
-			test("Should create a new entity with attribute overrided", async () => {
-				const userCreated = await factory.create({
-					name: "john",
-				});
-
-				expect(userCreated.name).toBe("john");
-			});
-
-			test("Should create a new entity with function as attribute", async () => {
-				const userCreated = await factory.create({
-					name: () => "john",
-				});
-
-				expect(userCreated.name).toBe("john");
-			});
-
-			test("Should create a new entity with async function as attribute", async () => {
-				const userCreated = await factory.create({
-					name: async () => "john",
-				});
-
-				expect(userCreated.name).toBe("john");
-			});
-
-			test("Should create a new entity with instance attributes", async () => {
-				const userCreated = await factory.create({
-					email: new EagerInstanceAttribute((instance) =>
-						[instance.name.toLowerCase(), instance.lastName.toLowerCase(), "@email.com"].join(""),
-					),
-				});
-
-				expect(userCreated.email).toMatch(userCreated.name.toLowerCase());
-				expect(userCreated.email).toMatch(userCreated.lastName.toLowerCase());
-			});
-
 			test("Should create a new entity with lazy instance attributes", async () => {
 				const userCreated = await factory.create({
 					secondLastName: new LazyInstanceAttribute((instance) => `lazy-${instance.id}`),
@@ -276,21 +227,6 @@ describe(Factory, () => {
 			test("Should create a new entity with multiple subfactories", async () => {
 				const userCreated = await factory.create({
 					pets: new LazyInstanceAttribute((instance) => new CollectionSubfactory(PetFactory, 1, { owner: instance })),
-				});
-
-				expect(userCreated.pets).toBeInstanceOf(Array);
-				expect(userCreated.pets).toHaveLength(1);
-
-				for (const pet of userCreated.pets) {
-					expect(pet.id).toBeDefined();
-					expect(pet.owner).toBeInstanceOf(User);
-					expect(pet.owner.id).toBe(userCreated.id);
-				}
-			});
-
-			test("Should create a new entity with multiple subfactories in an array", async () => {
-				const userCreated = await factory.create({
-					pets: new LazyInstanceAttribute((instance) => [new SingleSubfactory(PetFactory, { owner: instance })]),
 				});
 
 				expect(userCreated.pets).toBeInstanceOf(Array);

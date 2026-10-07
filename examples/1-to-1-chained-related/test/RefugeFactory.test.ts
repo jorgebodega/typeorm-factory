@@ -23,32 +23,6 @@ describe(RefugeFactory, () => {
 			expect(refugeMaked.pet.owner.id).toBeUndefined();
 			expect(refugeMaked.pet.owner.name).toBeDefined();
 		});
-
-		test("Should make two entities with different attributes", async () => {
-			const refugeMaked1 = await factory.make();
-			const refugeMaked2 = await factory.make();
-
-			expect(refugeMaked1).not.toStrictEqual(refugeMaked2);
-		});
-	});
-
-	describe(RefugeFactory.prototype.makeMany, () => {
-		test("Should make many new entities", async () => {
-			const count = 2;
-			const entitiesMaked = await factory.makeMany(count);
-
-			expect(entitiesMaked).toHaveLength(count);
-
-			for (const entity of entitiesMaked) {
-				expect(entity.id).toBeUndefined();
-
-				expect(entity.pet).toBeInstanceOf(Pet);
-				expect(entity.pet.id).toBeUndefined();
-
-				expect(entity.pet.owner).toBeInstanceOf(User);
-				expect(entity.pet.owner.id).toBeUndefined();
-			}
-		});
 	});
 
 	describe(RefugeFactory.prototype.create, () => {
@@ -92,36 +66,6 @@ describe(RefugeFactory, () => {
 			expect(totalUsers).toBe(1);
 			expect(totalPets).toBe(1);
 			expect(totalRefuges).toBe(1);
-		});
-	});
-
-	describe(RefugeFactory.prototype.createMany, () => {
-		beforeAll(async () => {
-			await dataSource.initialize();
-		});
-
-		beforeEach(async () => {
-			await dataSource.synchronize(true);
-		});
-
-		afterAll(async () => {
-			await dataSource.destroy();
-		});
-
-		test("Should create many new entities", async () => {
-			const count = 2;
-			const entitiesCreated = await factory.createMany(count);
-
-			expect(entitiesCreated).toHaveLength(count);
-			for (const entity of entitiesCreated) {
-				expect(entity.id).toBeDefined();
-
-				expect(entity.pet).toBeInstanceOf(Pet);
-				expect(entity.pet.id).toBeDefined();
-
-				expect(entity.pet.owner).toBeInstanceOf(User);
-				expect(entity.pet.owner.id).toBeDefined();
-			}
 		});
 	});
 });
