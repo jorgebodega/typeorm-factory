@@ -1,3 +1,13 @@
+## [4.0.0-next.2](https://github.com/jorgebodega/typeorm-factory/compare/v4.0.0-next.1...v4.0.0-next.2) (2026-10-07)
+
+### Features
+
+* use swc instead of ts-jest ([#233](https://github.com/jorgebodega/typeorm-factory/issues/233)) ([0823ea8](https://github.com/jorgebodega/typeorm-factory/commit/0823ea8501e47f1bbb62789970ff3c5c1db44f66))
+
+### Bug Fixes
+
+* set rootDir in the build tsconfig ([#239](https://github.com/jorgebodega/typeorm-factory/issues/239)) ([b632761](https://github.com/jorgebodega/typeorm-factory/commit/b6327610cb3301634a6cf1ed9b25ebc9a92889cd))
+
 ## [4.0.0-next.1](https://github.com/jorgebodega/typeorm-factory/compare/v3.0.0...v4.0.0-next.1) (2026-09-28)
 
 ### ⚠ BREAKING CHANGES
