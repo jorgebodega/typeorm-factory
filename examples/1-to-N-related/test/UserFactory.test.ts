@@ -37,7 +37,6 @@ describe(UserFactory, () => {
 			for (const pet of userMaked.pets) {
 				expect(pet).toBeInstanceOf(Pet);
 				expect(pet.id).toBeUndefined();
-				expect(pet.owner).toBeDefined();
 				expect(pet.owner).toEqual(userMaked);
 			}
 		});
@@ -101,7 +100,6 @@ describe(UserFactory, () => {
 			for (const pet of userCreated.pets) {
 				expect(pet).toBeInstanceOf(Pet);
 				expect(pet.id).toBeDefined();
-				expect(pet.owner).toBeDefined();
 				expect(pet.owner).toEqual(userCreated);
 			}
 		});
