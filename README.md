@@ -54,10 +54,10 @@ pnpm add [-D] @jorgebodega/typeorm-factory
 
 # Compatibility
 
-| Version | TypeORM   | Node.js                                 | Branch | Status                                                         |
-| ------- | --------- | --------------------------------------- | ------ | -------------------------------------------------------------- |
-| 3.x     | `^0.3.28` | `^20.19.0 \|\| ^22.12.0 \|\| >=24.11.0` | `3.x`  | Security fixes only, published with the `release-3.x` npm tag. |
-| 4.x     | `>=1.0.0` | `^20.19.0 \|\| ^22.13.0 \|\| >=24.11.0` | `main` | Stable.                                                        |
+| Version | TypeORM   | Node.js                                 | Branch | Status                                                           |
+| ------- | --------- | --------------------------------------- | ------ | ---------------------------------------------------------------- |
+| 3.x     | `^0.3.28` | `^20.19.0 \|\| ^22.12.0 \|\| >=24.11.0` | `3.x`  | Security fixes only, published with the `compatibility` npm tag. |
+| 4.x     | `>=1.0.0` | `^20.19.0 \|\| ^22.13.0 \|\| >=24.11.0` | `main` | Stable.                                                          |
 
 Node.js ranges follow the ones supported by TypeORM.
 
@@ -327,6 +327,6 @@ pnpm build
 
 - `next`: development branch. Releases prereleases with the `next` npm tag.
 - `main`: stable releases with the `latest` npm tag.
-- `N.x`: maintenance branch of a previous major. Security fixes only, released with the `release-N.x` npm tag.
+- `N.x`: maintenance branch of a previous major. Security fixes only, released with the `compatibility` npm tag.
 
 Commits follow [Conventional Commits](https://www.conventionalcommits.org). Releases are created by the manual **Release** workflow (semantic-release); run it with `dry-run` first.
