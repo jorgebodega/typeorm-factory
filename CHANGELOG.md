@@ -1,3 +1,19 @@
+## [4.0.0](https://github.com/jorgebodega/typeorm-factory/compare/v3.0.0...v4.0.0) (2026-10-14)
+
+### ⚠ BREAKING CHANGES
+
+* require typeorm 1 (#232)
+
+### Features
+
+* accept an index callback in makeMany and createMany ([#243](https://github.com/jorgebodega/typeorm-factory/issues/243)) ([46a08a2](https://github.com/jorgebodega/typeorm-factory/commit/46a08a2bf2ce4da43d1f967f2d39559769029c3a))
+* require typeorm 1 ([#232](https://github.com/jorgebodega/typeorm-factory/issues/232)) ([33c17a0](https://github.com/jorgebodega/typeorm-factory/commit/33c17a087c4e1afd036348a8205cafb61721c499))
+* use swc instead of ts-jest ([#233](https://github.com/jorgebodega/typeorm-factory/issues/233)) ([0823ea8](https://github.com/jorgebodega/typeorm-factory/commit/0823ea8501e47f1bbb62789970ff3c5c1db44f66))
+
+### Bug Fixes
+
+* set rootDir in the build tsconfig ([#239](https://github.com/jorgebodega/typeorm-factory/issues/239)) ([b632761](https://github.com/jorgebodega/typeorm-factory/commit/b6327610cb3301634a6cf1ed9b25ebc9a92889cd))
+
 ## [4.0.0-next.3](https://github.com/jorgebodega/typeorm-factory/compare/v4.0.0-next.2...v4.0.0-next.3) (2026-10-07)
 
 ### Features
